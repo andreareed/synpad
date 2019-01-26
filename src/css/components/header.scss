@@ -1,35 +1,38 @@
 .header {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  padding: 20px;
   background-color: #282c34;
   color: #fff;
   margin: 0 20px;
+  font-family: 'Orbitron', 'Teko', sans-serif;
+  box-sizing: border-box;
 
   .header-brand {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 110px;
-    font-size: 32px;
+    min-width: 155px;
+    font-size: 26px;
     .logo-icon {
       fill: var(--primary);
       height: 30px;
-      margin-top: 10px;
+      margin-top: 3px;
     }
   }
 
   .header-nav-links {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
 
     a {
       text-decoration: none;
       color: #fff;
-      font-size: 24px;
-      margin-left: 20px;
-      padding: 0 10px;
+      font-size: 18px;
+      padding: 10px;
     }
 
     a.active {
@@ -42,7 +45,7 @@
     position: absolute;
     background-color: var(--primary);
     right: 0;
-    font-size: 24px;
+    font-size: 18px;
     text-align: center;
     a {
       margin-left: 0;
@@ -53,7 +56,7 @@
   .header-nav-links__dropdown {
     position: relative;
     text-align: right;
-    font-size: 24px;
+    font-size: 18px;
     margin-left: 20px;
     padding: 0 10px;
     cursor: pointer;
@@ -70,5 +73,8 @@
         display: block;
       }
     }
+  }
+
+  @media (max-width: 967px) {
   }
 }

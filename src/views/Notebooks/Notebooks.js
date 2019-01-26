@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
 import Loading from '../../common/components/Loading';
+import NoContentPlaceholder from '../../common/components/NoContentPlaceholder';
 
 class Notebooks extends Component {
   static propTypes = {
@@ -22,6 +23,10 @@ class Notebooks extends Component {
 
     if (loading) {
       return <Loading />;
+    }
+
+    if (!notebooks.size) {
+      return <NoContentPlaceholder title="No notebooks found" message="Why not add one?" />;
     }
 
     return (

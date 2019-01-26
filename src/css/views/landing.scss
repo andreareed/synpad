@@ -1,5 +1,6 @@
 .landing {
   padding: 50px 0;
+  font-family: 'Orbitron', sans-serif;
 
   .container {
     min-height: calc(100vh - 100px);
@@ -26,12 +27,14 @@
         margin: 15px 0;
         background-color: var(--primary);
         border-color: var(--primary);
+        font-family: 'Orbitron', sans-serif;
       }
     }
 
     .landing-links {
       text-align: center;
       margin-top: 20px;
+      font-family: 'Orbitron', sans-serif;
       .active {
         color: var(--primary);
       }

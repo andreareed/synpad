@@ -1,0 +1,13 @@
+.placeholder {
+  min-height: calc(100vh - 175px);
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  opacity: 0.5;
+
+  h1 {
+    margin-bottom: 0;
+  }
+}
