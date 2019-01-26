@@ -5,7 +5,11 @@ class Notebooks extends Component {
   static propTypes = {};
 
   render() {
-    return <div>Notebooks</div>;
+    return (
+      <div className="notebooks">
+        <div className="container">Notebooks</div>
+      </div>
+    );
   }
 }
 
