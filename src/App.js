@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import { Map } from 'immutable';
 import localstorage from 'store2';
 
 import Loading from './common/components/Loading';
+import Header from './common/components/Header';
 
 import Landing from './views/Landing';
 import Notebooks from './views/Notebooks';
@@ -46,17 +47,20 @@ class App extends Component {
       return (
         <div className="app">
           <Switch>
-            <Route path="/" component={Landing} />
+            <Route exact path="/" component={Landing} />
           </Switch>
         </div>
       );
     }
 
     return (
-      <div className="app">
-        <Switch>
-          <Route path="/" component={Notebooks} />
-        </Switch>
+      <div>
+        <Header />
+        <div className="app">
+          <Switch>
+            <Route exact path="/" component={Notebooks} />
+          </Switch>
+        </div>
       </div>
     );
   }
@@ -76,7 +80,9 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(App)
+);

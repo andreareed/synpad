@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
-import localstorage from 'store2';
 import classNames from 'classnames';
 
 import Icon from '../../common/components/Icon/Icon';

@@ -8,6 +8,7 @@
 @import './forms/inputs.scss';
 @import './forms/input-wrapper.scss';
 @import './components/loading.scss';
+@import './components/header.scss';
 
 @import './app.scss';
 @import './views/landing.scss';
@@ -19,6 +20,7 @@ body {
   font-family: 'Teko', 'Roboto', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #282c34;
 }
 
 code {
