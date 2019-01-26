@@ -2,14 +2,21 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
+import NotebookForm from './NotebookForm';
+
 import Loading from '../../common/components/Loading';
 import Icon from '../../common/components/Icon/Icon';
 import NoContentPlaceholder from '../../common/components/NoContentPlaceholder';
+import Modal from '../../common/components/Modal';
 
 class Notebooks extends Component {
   static propTypes = {
     notebooks: PropTypes.instanceOf(List).isRequired,
     getNotebooks: PropTypes.func.isRequired,
+  };
+
+  state = {
+    notebookModalVisible: false,
   };
 
   componentDidMount() {
@@ -18,6 +25,17 @@ class Notebooks extends Component {
       getNotebooks();
     }
   }
+
+  toggleModal = () => this.setState({ notebookModalVisible: !this.state.notebookModalVisible });
+
+  renderNotebookModal = () => {
+    const { notebookModalVisible } = this.state;
+    return (
+      <Modal isVisible={notebookModalVisible} onClose={this.toggleModal}>
+        <NotebookForm onSubmit={() => console.log('onsubmit')} onCancel={this.toggleModal} />
+      </Modal>
+    );
+  };
 
   render() {
     const { loading, notebooks } = this.props;
@@ -30,16 +48,17 @@ class Notebooks extends Component {
       return (
         <div className="notebooks">
           <div className="container">
-            <Icon icon="Plus" />
+            <Icon icon="Plus" onClick={this.toggleModal} />
             <NoContentPlaceholder
               title="No notebooks found"
               message={
                 <div className="notebooks-placeholder-message">
-                  Click the <Icon icon="Plus" /> to add one!
+                  Click the <Icon icon="Plus" onClick={this.toggleModal} /> to add one!
                 </div>
               }
             />
           </div>
+          {this.renderNotebookModal()}
         </div>
       );
     }
@@ -47,8 +66,9 @@ class Notebooks extends Component {
     return (
       <div className="notebooks">
         <div className="container">
-          <Icon icon="Plus" />
+          <Icon icon="Plus" onClick={this.toggleModal} />
         </div>
+        {this.renderNotebookModal()}
       </div>
     );
   }

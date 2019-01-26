@@ -3,6 +3,11 @@
   font-size: 14px;
   outline: none;
   border-radius: 3px;
-  margin: 10px;
   font-weight: 700;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  border-color: var(--primary);
 }

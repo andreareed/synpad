@@ -1,7 +1,7 @@
 .header {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   padding: 20px;
   background-color: #282c34;
@@ -27,12 +27,14 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
 
     a {
       text-decoration: none;
       color: #fff;
       font-size: 18px;
       padding: 10px;
+      margin: 0 10px;
     }
 
     a.active {
@@ -57,7 +59,7 @@
     position: relative;
     text-align: right;
     font-size: 18px;
-    margin-left: 20px;
+    margin: 0 10px;
     padding: 0 10px;
     cursor: pointer;
 

@@ -2,6 +2,7 @@
   .plus-icon {
     fill: var(--primary);
     height: 30px;
+    cursor: pointer;
   }
 
   .notebooks-placeholder-message {
@@ -12,5 +13,18 @@
     .icon {
       margin: 0 10px;
     }
+  }
+}
+
+.notebook-form {
+  box-sizing: border-box;
+  color: #333;
+  width: 100vw;
+  max-width: 400px;
+  padding: 10px 20px;
+
+  .notebook-form-buttons {
+    display: flex;
+    justify-content: space-between;
   }
 }

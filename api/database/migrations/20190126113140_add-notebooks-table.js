@@ -3,6 +3,7 @@ exports.up = async knex => {
     table.uuid('id').primary();
     table.uuid('user_id').references('users.id');
     table.string('title').defaultsTo('Untitled');
+    table.string('description');
     table.timestamp('created_at').notNullable();
     table.timestamp('deleted_at');
   });
