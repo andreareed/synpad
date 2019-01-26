@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import { fromJS } from 'immutable';
 import localstorage from 'store2';
 
+import notebooks from '../views/Notebooks/reducers';
 import { REGISTER_USER, LOGIN_USER, VERIFY_TOKEN, LOGOUT_USER } from './actions';
 
 const loading = (state = false, action) => {
@@ -44,4 +45,5 @@ const user = (state = null, action) => {
 export default combineReducers({
   loading,
   user,
+  notebooks,
 });

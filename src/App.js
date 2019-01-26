@@ -40,7 +40,11 @@ class App extends Component {
     const { user, loading } = this.props;
 
     if (loading) {
-      return <Loading />;
+      return (
+        <div className="app-loading">
+          <Loading />
+        </div>
+      );
     }
 
     if (!user) {

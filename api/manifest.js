@@ -16,6 +16,7 @@ objectionSoftDelete.register(objection, {
 // Route Plugins
 const authRoutes = require('./application/auth/auth-routes');
 const userRoutes = require('./application/user/user-routes');
+const notebookRoutes = require('./application/notebook/notebook-routes');
 
 module.exports = {
   server: {
@@ -45,6 +46,6 @@ module.exports = {
     port: 9000,
   },
   register: {
-    plugins: [JWTAuth, Inert, Bootstrap, authRoutes, userRoutes],
+    plugins: [JWTAuth, Inert, Bootstrap, authRoutes, userRoutes, notebookRoutes],
   },
 };
