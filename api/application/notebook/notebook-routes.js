@@ -16,6 +16,22 @@ module.exports = {
           },
         },
       },
+      {
+        method: 'POST',
+        path: '/notebooks',
+        handler: controller.postNotebookHandler,
+        config: {
+          auth: {
+            strategies: ['jwt'],
+          },
+          validate: {
+            payload: {
+              title: Joi.string().allow(''),
+              description: Joi.string().allow(''),
+            },
+          },
+        },
+      },
     ]);
   },
 };

@@ -15,7 +15,7 @@ class NotebookForm extends Component {
   static propTypes = {
     notebook: PropTypes.instanceOf(Map),
     onSubmit: PropTypes.func,
-    onCancel: PropTypes.func,
+    onClose: PropTypes.func,
   };
 
   static defaultProps = {
@@ -34,7 +34,9 @@ class NotebookForm extends Component {
         <button className="btn" onClick={this.props.onCancel}>
           Cancel
         </button>
-        <button className="btn btn-primary">Create!</button>
+        <button type="submit" className="btn btn-primary">
+          Create!
+        </button>
       </div>
     </Form>
   );
@@ -49,7 +51,15 @@ class NotebookForm extends Component {
         }}
         enableReinitialize
         render={this.renderForm}
-        onSubmit={(values, { setSubmitting }) => {}}
+        onSubmit={(values, { setSubmitting }) => {
+          const { onSubmit, onClose } = this.props;
+          onSubmit(values).then(action => {
+            if (action.response.ok) {
+              onClose();
+            }
+            setSubmitting(false);
+          });
+        }}
       />
     );
   }

@@ -13,6 +13,13 @@ class Notebooks extends Component {
   static propTypes = {
     notebooks: PropTypes.instanceOf(List).isRequired,
     getNotebooks: PropTypes.func.isRequired,
+    postNotebook: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    notebooks: List(),
+    getNotebooks: null,
+    postNotebook: null,
   };
 
   state = {
@@ -29,10 +36,11 @@ class Notebooks extends Component {
   toggleModal = () => this.setState({ notebookModalVisible: !this.state.notebookModalVisible });
 
   renderNotebookModal = () => {
+    const { postNotebook } = this.props;
     const { notebookModalVisible } = this.state;
     return (
       <Modal isVisible={notebookModalVisible} onClose={this.toggleModal}>
-        <NotebookForm onSubmit={() => console.log('onsubmit')} onCancel={this.toggleModal} />
+        <NotebookForm onSubmit={postNotebook} onClose={this.toggleModal} />
       </Modal>
     );
   };

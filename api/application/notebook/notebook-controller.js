@@ -3,7 +3,10 @@ const service = require('./notebook-service');
 
 module.exports = {
   async getNotebooksHandler(request) {
-    const { id } = request.auth.credentials;
-    return service.getNotebooks(id);
+    return service.getNotebooks(request.auth.credentials.id);
+  },
+
+  async postNotebookHandler(request) {
+    return service.postNotebook(request.auth.credentials.id, request.payload);
   },
 };
