@@ -5,14 +5,14 @@ const NoContentPlaceholder = props => {
   return (
     <div className="placeholder">
       <h1>{props.title}</h1>
-      <p>{props.message}</p>
+      {props.message}
     </div>
   );
 };
 
 NoContentPlaceholder.propTypes = {
   title: PropTypes.string,
-  message: PropTypes.string,
+  message: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
 };
 
 NoContentPlaceholder.defaultProps = {

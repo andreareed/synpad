@@ -1,0 +1,16 @@
+.notebooks {
+  .plus-icon {
+    fill: var(--primary);
+    height: 30px;
+  }
+
+  .notebooks-placeholder-message {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    .icon {
+      margin: 0 10px;
+    }
+  }
+}

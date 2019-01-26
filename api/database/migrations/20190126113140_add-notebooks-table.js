@@ -14,7 +14,7 @@ exports.up = async knex => {
       .references('notebooks.id')
       .onDelete('CASCADE');
     table.string('title').defaultsTo('Untitled');
-    table.json('content');
+    table.text('content');
     table.timestamp('created_at').notNullable();
     table.timestamp('deleted_at');
   });
