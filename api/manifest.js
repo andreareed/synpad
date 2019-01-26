@@ -4,10 +4,14 @@ const Inert = require('inert');
 const Bootstrap = require('./bootstrap');
 const JWTAuth = require('hapi-auth-jwt2');
 const objection = require('objection');
+const objectionSoftDelete = require('objection-softdelete');
 const knex = require('./knex');
 
 // Register Model knex instance
 objection.Model.knex(knex);
+objectionSoftDelete.register(objection, {
+  deleteAttr: 'deleted_at',
+});
 
 // Route Plugins
 const authRoutes = require('./application/auth/auth-routes');

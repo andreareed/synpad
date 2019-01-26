@@ -1,5 +1,5 @@
 exports.up = async knex => {
-  await knex.schema.createTable('users', table => {
+  return knex.schema.createTable('users', table => {
     table.uuid('id').primary();
     table.string('first_name');
     table.string('last_name');
@@ -10,5 +10,5 @@ exports.up = async knex => {
 };
 
 exports.down = async knex => {
-  await knex.schema.dropTable('users');
+  return knex.schema.dropTable('users');
 };

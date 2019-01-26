@@ -6,23 +6,27 @@ const knexConnection = Knex(connection);
 
 Model.knex(knexConnection);
 
-class User extends Model {
+class Note extends Model {
   static get tableName() {
-    return 'users';
+    return 'notes';
   }
 
   static get notFoundMessage() {
-    return 'Invalid user';
+    return 'Invalid note';
+  }
+
+  static get softDelete() {
+    return true;
   }
 
   static get relationMappings() {
     return {
       notebooks: {
-        relation: Model.HasManyRelation,
-        modelClass: require('../notebook/Notebook'),
+        relation: Model.BelongsToOneRelation,
+        modelClass: require('../notebooks/Notebook'),
         join: {
-          from: 'notebooks.user_id',
-          to: 'users.id',
+          from: 'notes.notebook_id',
+          to: 'notebook.id',
         },
       },
     };
@@ -30,8 +34,8 @@ class User extends Model {
 
   $beforeInsert() {
     this.id = uuid.v4();
-    this.this.created_at = new Date().toISOString();
+    this.created_at = new Date().toISOString();
   }
 }
 
-module.exports = User;
+module.exports = Note;

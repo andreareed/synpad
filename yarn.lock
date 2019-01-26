@@ -6447,6 +6447,10 @@ object.values@^1.0.4:
     function-bind "^1.1.1"
     has "^1.0.3"
 
+objection-softdelete@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/objection-softdelete/-/objection-softdelete-2.0.1.tgz#97d6852ed2a8f08939b197b4ce41b1cd93451f99"
+
 objection@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/objection/-/objection-1.4.0.tgz#18ddcdc121ae9b5d1e8e88b10fd0a6c96134f422"
