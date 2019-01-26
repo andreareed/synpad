@@ -1,0 +1,60 @@
+.app {
+  padding: 50px 0;
+  background-color: #282c34;
+  color: #fff;
+  font-family: 'Orbitron', sans-serif;
+
+  .container {
+    min-height: calc(100vh - 100px);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    .app-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      .logo-icon {
+        fill: var(--primary);
+      }
+    }
+
+    form {
+      width: 100%;
+      max-width: 400px;
+      button {
+        width: 100%;
+        margin: 15px 0;
+        background-color: var(--primary);
+        border-color: var(--primary);
+      }
+    }
+
+    .app-links {
+      text-align: center;
+      margin-top: 20px;
+      .active {
+        color: var(--primary);
+      }
+
+      button {
+        background-color: transparent;
+        border: none;
+        font-size: 24px;
+        color: #fff;
+        padding: 20px;
+        margin-bottom: 20px;
+        font-family: 'Orbitron', sans-serif;
+
+        &:first-child {
+          border-right: 1px solid #fff;
+        }
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+}
