@@ -1,19 +1,15 @@
 import { connect } from 'react-redux';
-import Register from './Register';
-
-import { registerUser } from '../../redux/actions';
+import Notebooks from './Notebooks';
 
 const mapStateToProps = state => {
   return {};
 };
 
 const mapDispatchToProps = dispatch => {
-  return {
-    registerUser: values => dispatch(registerUser(values)),
-  };
+  return {};
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Register);
+)(Notebooks);

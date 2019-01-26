@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import Login from './Login';
+import Landing from './Landing';
 
-import { loginUser } from '../../redux/actions';
+import { loginUser, registerUser } from '../../redux/actions';
 
 const mapStateToProps = state => {
   return {};
@@ -10,10 +10,11 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     loginUser: values => dispatch(loginUser(values)),
+    registerUser: values => dispatch(registerUser(values)),
   };
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Login);
+)(Landing);

@@ -23,7 +23,7 @@ export default () => next => action => {
       if (response.status === 401) {
         return next(() => {
           store.clearAll();
-          window.location.href = '/login';
+          window.location.href = '/';
         });
       }
 
