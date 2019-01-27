@@ -19,8 +19,8 @@ class Notebooks extends Component {
 
   static defaultProps = {
     notebooks: List(),
-    getNotebooks: null,
-    postNotebook: null,
+    getNotebooks: () => {},
+    postNotebook: () => {},
   };
 
   state = {

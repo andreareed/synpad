@@ -13,7 +13,7 @@ class Modal extends Component {
   static defaultProps = {
     className: null,
     isVisible: false,
-    onClose: null,
+    onClose: () => {},
   };
 
   componentDidMount() {

@@ -1,5 +1,6 @@
 const Boom = require('boom');
 const Notebook = require('./Notebook');
+const Note = require('./Note');
 
 module.exports = {
   async getNotebooks(user_id) {
@@ -13,6 +14,10 @@ module.exports = {
   },
 
   async postNotebook(user_id, payload) {
-    return Notebook.query().insert({ user_id, ...payload });
+    return Notebook.query().insertAndFetch({ user_id, ...payload });
+  },
+
+  async postNote(notebook_id) {
+    return Note.query().insertAndFetch({ notebook_id });
   },
 };

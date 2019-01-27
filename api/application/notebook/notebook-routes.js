@@ -1,5 +1,10 @@
 const Joi = require('joi');
+const {
+  asyncValidation,
+  objection: { rowExists, rowExistsWhere },
+} = require('@synapsestudios/hapi-async-validation');
 
+const Notebook = require('./Notebook');
 const controller = require('./notebook-controller');
 
 module.exports = {
@@ -40,6 +45,29 @@ module.exports = {
               title: Joi.string().allow(''),
               description: Joi.string().allow(''),
             },
+          },
+        },
+      },
+      {
+        method: 'POST',
+        path: '/notebooks/{notebook}/note',
+        handler: controller.postNoteHandler,
+        config: {
+          auth: {
+            strategies: ['jwt'],
+            scope: ['notebook-{params.notebook}'],
+          },
+          validate: {
+            params: asyncValidation(
+              {
+                notebook: Joi.string()
+                  .uuid()
+                  .required(),
+              },
+              {
+                notebook: rowExists(Notebook, 'id', Notebook.notFoundMessage, { convert: false }),
+              }
+            ),
           },
         },
       },

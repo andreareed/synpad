@@ -2,15 +2,22 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 
+import Sidebar from './Sidebar';
+import Loading from '../../common/components/Loading';
+
 class Notebook extends Component {
   static propTypes = {
     notebook: PropTypes.instanceOf(Map).isRequired,
     getNotebook: PropTypes.func.isRequired,
+    loading: PropTypes.bool,
+    postNote: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     notebook: Map(),
-    getNotebook: null,
+    loading: false,
+    getNotebook: () => {},
+    postNote: () => {},
   };
 
   componentDidMount() {
@@ -19,10 +26,15 @@ class Notebook extends Component {
   }
 
   render() {
-    const { notebook } = this.props;
+    const { notebook, loading, postNote } = this.props;
+
+    if (loading) {
+      return <Loading />;
+    }
+    console.log('---', loading, notebook.toJS());
     return (
       <div>
-        <h1>{notebook.get('title')}</h1>
+        <Sidebar notebook={notebook} addNote={postNote} />
       </div>
     );
   }

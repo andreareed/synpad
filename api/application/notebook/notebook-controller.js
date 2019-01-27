@@ -13,4 +13,8 @@ module.exports = {
   async postNotebookHandler(request) {
     return service.postNotebook(request.auth.credentials.id, request.payload);
   },
+
+  async postNoteHandler(request) {
+    return service.postNote(request.params.notebook);
+  },
 };

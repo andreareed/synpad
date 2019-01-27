@@ -831,6 +831,12 @@
     lodash.get "^4.3.0"
     merge "^1.2.0"
 
+"@synapsestudios/hapi-async-validation@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@synapsestudios/hapi-async-validation/-/hapi-async-validation-2.1.0.tgz#3764246fd196e9467d813a5ce0699f06ee7fd844"
+  dependencies:
+    lodash.get "^4.4.2"
+
 "@types/bluebird@^3.5.25":
   version "3.5.25"
   resolved "https://registry.yarnpkg.com/@types/bluebird/-/bluebird-3.5.25.tgz#59188b871208092e37767e4b3d80c3b3eaae43bd"
@@ -5663,7 +5669,7 @@ lodash.debounce@^4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
 
-lodash.get@^4.3.0:
+lodash.get@^4.3.0, lodash.get@^4.4.2:
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/lodash.get/-/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
 

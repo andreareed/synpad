@@ -6,6 +6,7 @@
   "proxy": "http://localhost:9000/api",
   "dependencies": {
     "@synapsestudios/fetch-client": "^1.0.4",
+    "@synapsestudios/hapi-async-validation": "^2.1.0",
     "bcrypt": "^3.0.3",
     "boom": "^7.3.0",
     "classnames": "^2.2.6",
