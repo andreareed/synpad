@@ -30,7 +30,7 @@ class Notebook extends Model {
         },
       },
       notes: {
-        relation: Model.HasManyRelation,
+        relation: Model.BelongsToOneRelation,
         modelClass: require('../note/Note'),
         join: {
           from: 'notes.notebook_id',

@@ -10,6 +10,7 @@ import Header from './common/components/Header';
 
 import Landing from './views/Landing';
 import Notebooks from './views/Notebooks';
+import Notebook from './views/Notebook';
 
 import { verifyToken, logout } from './redux/actions';
 
@@ -62,6 +63,7 @@ class App extends Component {
         <Header />
         <Switch>
           <Route exact path="/" component={Notebooks} />
+          <Route exact path="/:notebookId" component={Notebook} />
         </Switch>
       </div>
     );

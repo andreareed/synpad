@@ -23,10 +23,10 @@ class Note extends Model {
     return {
       notebooks: {
         relation: Model.BelongsToOneRelation,
-        modelClass: require('../notebooks/Notebook'),
+        modelClass: require('../notebook/Notebook'),
         join: {
           from: 'notes.notebook_id',
-          to: 'notebook.id',
+          to: 'notebooks.id',
         },
       },
     };

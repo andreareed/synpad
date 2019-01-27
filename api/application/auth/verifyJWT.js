@@ -2,7 +2,7 @@ const userService = require('../user/user-service');
 
 const validate = async (decoded, request) => {
   try {
-    const user = await userService.findById(decoded.id);
+    const user = await userService.get(decoded.id, { notebooks: true });
 
     if (!user) {
       throw new Error(`User ${decoded.sub} not found`);
@@ -22,7 +22,7 @@ const validate = async (decoded, request) => {
       scope: [
         ...(isVerified ? ['verified'] : []),
         `user-${user.id}`,
-        //Example: ...user.posts.map(post => `post-${post.id}`),
+        ...user.notebooks.map(notebook => `notebook-${notebook.id}`),
       ],
     };
 

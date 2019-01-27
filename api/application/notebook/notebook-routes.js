@@ -17,6 +17,17 @@ module.exports = {
         },
       },
       {
+        method: 'GET',
+        path: '/notebooks/{notebook}',
+        handler: controller.getNotebookHandler,
+        config: {
+          auth: {
+            strategies: ['jwt'],
+            scope: ['notebook-{params.notebook}'],
+          },
+        },
+      },
+      {
         method: 'POST',
         path: '/notebooks',
         handler: controller.postNotebookHandler,

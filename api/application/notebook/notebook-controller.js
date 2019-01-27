@@ -6,6 +6,10 @@ module.exports = {
     return service.getNotebooks(request.auth.credentials.id);
   },
 
+  async getNotebookHandler(request) {
+    return service.getNotebook(request.params.notebook);
+  },
+
   async postNotebookHandler(request) {
     return service.postNotebook(request.auth.credentials.id, request.payload);
   },

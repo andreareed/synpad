@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
+import { Link } from 'react-router-dom';
 
 import NotebookForm from './NotebookForm';
 
@@ -46,10 +47,10 @@ class Notebooks extends Component {
   };
 
   renderNotebook = notebook => (
-    <div key={notebook.get('id')} className="notebooks-card">
+    <Link to={`/${notebook.get('id')}`} key={notebook.get('id')} className="notebooks-card">
       <h3>{notebook.get('title') || 'Untitled'}</h3>
       {notebook.get('description')}
-    </div>
+    </Link>
   );
 
   render() {

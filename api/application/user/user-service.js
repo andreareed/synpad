@@ -2,6 +2,12 @@ const Boom = require('boom');
 const User = require('./User');
 
 module.exports = {
+  async get(id, relationships = {}) {
+    return User.query()
+      .findById(id)
+      .eager(relationships);
+  },
+
   async findById(id) {
     return User.query().findById(id);
   },
