@@ -23,7 +23,7 @@ const notebooks = (state = List(), action) => {
       return fromJS(action.json);
 
     case `${POST_NOTEBOOK}_SUCCESS`:
-      return state.push(action.json);
+      return state.push(fromJS(action.json));
 
     default:
       return state;

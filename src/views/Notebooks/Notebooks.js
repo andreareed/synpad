@@ -45,9 +45,15 @@ class Notebooks extends Component {
     );
   };
 
+  renderNotebook = notebook => (
+    <div key={notebook.get('id')} className="notebooks-card">
+      <h3>{notebook.get('title') || 'Untitled'}</h3>
+      {notebook.get('description')}
+    </div>
+  );
+
   render() {
     const { loading, notebooks } = this.props;
-
     if (loading) {
       return <Loading />;
     }
@@ -66,7 +72,6 @@ class Notebooks extends Component {
               }
             />
           </div>
-          {this.renderNotebookModal()}
         </div>
       );
     }
@@ -75,6 +80,9 @@ class Notebooks extends Component {
       <div className="notebooks">
         <div className="container">
           <Icon icon="Plus" onClick={this.toggleModal} />
+        </div>
+        <div className="notebooks-card-wrapper">
+          {notebooks.map(notebook => this.renderNotebook(notebook))}
         </div>
         {this.renderNotebookModal()}
       </div>

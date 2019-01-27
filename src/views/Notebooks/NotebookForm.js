@@ -53,6 +53,11 @@ class NotebookForm extends Component {
         render={this.renderForm}
         onSubmit={(values, { setSubmitting }) => {
           const { onSubmit, onClose } = this.props;
+          for (const key in values) {
+            if (!values[key]) {
+              delete values[key];
+            }
+          }
           onSubmit(values).then(action => {
             if (action.response.ok) {
               onClose();
