@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
+import Markdown from 'markdown-it';
 
 class ViewNote extends Component {
   static propTypes = {
@@ -9,13 +10,17 @@ class ViewNote extends Component {
 
   render() {
     const { note } = this.props;
+    const md = Markdown();
 
     if (!note) {
       return null;
     }
     return (
       <div className="view-note">
-        <div className="view-note-content">{note.get('content')}</div>
+        <div
+          className="view-note-content"
+          dangerouslySetInnerHTML={{ __html: md.render(note.get('content')) }}
+        />
       </div>
     );
   }
