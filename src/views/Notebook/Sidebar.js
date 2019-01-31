@@ -17,10 +17,6 @@ class Sidebar extends Component {
     addNote: () => {},
   };
 
-  state = {
-    collapse: false,
-  };
-
   renderNote = note => {
     const { viewNote } = this.props;
     return (
@@ -31,8 +27,7 @@ class Sidebar extends Component {
   };
 
   render() {
-    const { notebook, addNote, loading, collapseSidebar } = this.props;
-    const { collapse } = this.state;
+    const { notebook, addNote, loading, collapseSidebar, collapse } = this.props;
 
     if (loading) {
       return null;
@@ -42,10 +37,7 @@ class Sidebar extends Component {
       <div className={classNames('sidebar', { collapse })}>
         <div className="sidebar-header">
           <h2>{notebook.get('title')}</h2>
-          <div
-            className="sidebar-tab"
-            onClick={() => this.setState({ collapse: !collapse }, () => collapseSidebar())}
-          >
+          <div className="sidebar-tab" onClick={() => collapseSidebar()}>
             <Icon icon={collapse ? 'RightArrow' : 'LeftArrow'} />
           </div>
         </div>

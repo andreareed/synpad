@@ -26,7 +26,7 @@ class Note extends Component {
   };
 
   renderDisplay = () => {
-    const { note, expand } = this.props;
+    const { note } = this.props;
     const { editing } = this.state;
 
     if (editing) {

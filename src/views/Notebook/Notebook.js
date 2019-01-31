@@ -53,7 +53,8 @@ class Notebook extends Component {
         <Sidebar
           notebook={notebook}
           addNote={postNote}
-          viewNote={activeNote => this.setState({ activeNote })}
+          collapse={collapseSidebar}
+          viewNote={activeNote => this.setState({ activeNote, collapseSidebar: !collapseSidebar })}
           collapseSidebar={() => this.setState({ collapseSidebar: !collapseSidebar })}
         />
         <Note
