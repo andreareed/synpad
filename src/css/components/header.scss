@@ -1,8 +1,8 @@
 .header {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center;
+  justify-content: space-between;
+  align-items: baseline;
   padding: 20px;
   background-color: var(--black);
   color: #fff;
@@ -11,15 +11,18 @@
   box-sizing: border-box;
 
   .header-brand {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    min-width: 155px;
+    width: 300px;
     font-size: 26px;
+
     .logo-icon {
       fill: var(--primary);
       height: 30px;
       margin-top: 3px;
+      margin-right: 10px;
+      display: inline-flex;
+      align-self: center;
+      top: 0.2em;
+      position: relative;
     }
   }
 
@@ -78,5 +81,10 @@
   }
 
   @media (max-width: 967px) {
+    justify-content: center;
+    .header-brand {
+      width: 100%;
+      text-align: center;
+    }
   }
 }

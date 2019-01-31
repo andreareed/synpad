@@ -23,7 +23,7 @@
   }
 
   .sidebar-notes {
-    height: calc(100vh - 227px);
+    height: calc(100vh - 235px);
     overflow-y: scroll;
   }
 
@@ -39,6 +39,10 @@
       fill: var(--primary);
       margin-right: 10px;
       margin-top: 7px;
+      display: inline-flex;
+      align-self: center;
+      top: 0.1em;
+      position: relative;
     }
   }
 }
