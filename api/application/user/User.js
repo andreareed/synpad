@@ -30,7 +30,7 @@ class User extends Model {
 
   $beforeInsert() {
     this.id = uuid.v4();
-    this.this.created_at = new Date().toISOString();
+    this.created_at = new Date().toISOString();
   }
 }
 

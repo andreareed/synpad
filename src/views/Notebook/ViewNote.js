@@ -19,7 +19,7 @@ class ViewNote extends Component {
       <div className="view-note">
         <div
           className="view-note-content"
-          dangerouslySetInnerHTML={{ __html: md.render(note.get('content')) }}
+          dangerouslySetInnerHTML={{ __html: md.render(note.get('content') || '') }}
         />
       </div>
     );
