@@ -4,6 +4,7 @@ import { Map } from 'immutable';
 
 import ViewNote from './ViewNote';
 import EditNote from './EditNote';
+import ToggleSwitch from '../../common/components/forms/ToggleSwitch';
 
 class Note extends Component {
   static propTypes = {
@@ -17,6 +18,7 @@ class Note extends Component {
   renderDisplay = () => {
     const { note } = this.props;
     const { editing } = this.state;
+
     if (editing) {
       return <EditNote note={note} />;
     }
@@ -25,12 +27,18 @@ class Note extends Component {
 
   render() {
     const { note } = this.props;
+    const { editing } = this.state;
+
     if (!note) {
       return null;
     }
     return (
       <div className="note">
         <div className="note-header">
+          <div className="note-header-toggle">
+            <ToggleSwitch onToggle={() => this.setState({ editing: !editing })} />
+            {editing ? 'Save' : 'Edit'}
+          </div>
           <h1>{note.get('title')}</h1>
         </div>
         {this.renderDisplay()}

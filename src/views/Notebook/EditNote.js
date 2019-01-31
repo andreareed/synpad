@@ -14,8 +14,7 @@ class ViewNote extends Component {
     }
     return (
       <div className="view-note">
-        <h1>{note.get('title')}</h1>
-        <div className="view-note-content">{note.get('content')}</div>
+        <div className="view-note-content">content</div>
       </div>
     );
   }
