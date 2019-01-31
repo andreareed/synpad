@@ -39,6 +39,7 @@ class Notebooks extends Component {
   renderNotebookModal = () => {
     const { postNotebook } = this.props;
     const { notebookModalVisible } = this.state;
+
     return (
       <Modal isVisible={notebookModalVisible} onClose={this.toggleModal}>
         <NotebookForm onSubmit={postNotebook} onClose={this.toggleModal} />
@@ -73,6 +74,7 @@ class Notebooks extends Component {
               }
             />
           </div>
+          {this.renderNotebookModal()}
         </div>
       );
     }

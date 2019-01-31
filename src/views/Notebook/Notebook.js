@@ -38,6 +38,10 @@ class Notebook extends Component {
       return <Loading />;
     }
 
+    if (!notebook.size) {
+      return 'Notebook not found';
+    }
+
     return (
       <div className="notebook">
         <Sidebar

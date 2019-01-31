@@ -36,8 +36,8 @@ class Sidebar extends Component {
       <div className="sidebar">
         <h2>{notebook.get('title')}</h2>
         <div className="sidebar-description">{notebook.get('description')}</div>
-        <div className="sidebar-add">
-          <Icon icon="Plus" onClick={() => addNote(notebook.get('id'))} />
+        <div className="sidebar-add" onClick={() => addNote(notebook.get('id'))}>
+          <Icon icon="Plus" />
           New Note
         </div>
         <div className="sidebar-notes">{notebook.get('notes').map(this.renderNote)}</div>

@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
 
 import ViewNote from './ViewNote';
-import EditNote from './EditNote';
 import ToggleSwitch from '../../common/components/forms/ToggleSwitch';
+
+const validationSchema = Yup.object().shape({
+  title: Yup.string()
+    .trim()
+    .max(65),
+  content: Yup.string().trim(),
+});
 
 class Note extends Component {
   static propTypes = {
@@ -20,27 +28,60 @@ class Note extends Component {
     const { editing } = this.state;
 
     if (editing) {
-      return <EditNote note={note} />;
+      return null;
     }
     return <ViewNote note={note} />;
   };
 
-  render() {
-    const { note } = this.props;
+  toggleSwitch = submitForm => {
     const { editing } = this.state;
+
+    if (editing) {
+      submitForm();
+    }
+    this.setState({ editing: !editing });
+  };
+
+  renderForm = ({ handleSubmit }) => {
+    const { editing } = this.state;
+
+    return (
+      <Form>
+        <div className="note-header">
+          <div className="note-header-toggle">
+            <ToggleSwitch onToggle={() => this.toggleSwitch(handleSubmit)} />
+            {editing ? 'Save' : 'Edit'}
+          </div>
+          <Field name="title" readOnly={!editing} className="note-header-title" />
+        </div>
+        {editing && <Field component="textarea" name="content" />}
+      </Form>
+    );
+  };
+
+  render() {
+    const { note, onSave } = this.props;
 
     if (!note) {
       return null;
     }
     return (
       <div className="note">
-        <div className="note-header">
-          <div className="note-header-toggle">
-            <ToggleSwitch onToggle={() => this.setState({ editing: !editing })} />
-            {editing ? 'Save' : 'Edit'}
-          </div>
-          <h1>{note.get('title')}</h1>
-        </div>
+        <Formik
+          initialValues={{
+            title: note.get('title') || '',
+            content: note.get('content') || '',
+          }}
+          enableReinitialize
+          validationSchema={validationSchema}
+          onSubmit={(values, actions) => {
+            console.log(values);
+            onSave(values).then(action => {
+              console.log(action);
+            });
+          }}
+          render={this.renderForm}
+        />
         {this.renderDisplay()}
       </div>
     );
