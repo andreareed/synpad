@@ -11,12 +11,14 @@
 @import './components/header.scss';
 @import './components/no-content-placeholder.scss';
 @import './components/modal.scss';
-@import './components/sidebar.scss';
 
 @import './app.scss';
 @import './views/landing.scss';
 @import './views/notebooks.scss';
-@import './views/notebook.scss';
+@import './views/notebook/notebook.scss';
+@import './views/notebook/sidebar.scss';
+@import './views/notebook/note.scss';
+@import './views/notebook/view-note.scss';
 
 body {
   margin: 0;

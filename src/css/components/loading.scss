@@ -1,5 +1,5 @@
 .loading-wrapper {
-  height: calc(100vh - 175px);
+  height: calc(100vh - 235px);
   width: 100vw;
   display: flex;
   justify-content: center;
@@ -7,7 +7,7 @@
   flex-direction: column;
 
   .loading-icon {
-    fill: #fff;
+    fill: var(--primary);
     animation: logo-spin infinite 2s linear;
   }
 }

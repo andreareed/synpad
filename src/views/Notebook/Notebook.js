@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 
 import Sidebar from './Sidebar';
-import ViewNote from './ViewNote';
+import Note from './Note';
 import Loading from '../../common/components/Loading';
 
 class Notebook extends Component {
@@ -45,7 +45,7 @@ class Notebook extends Component {
           addNote={postNote}
           viewNote={activeNote => this.setState({ activeNote })}
         />
-        <ViewNote note={activeNote} />
+        <Note note={activeNote} />
       </div>
     );
   }
