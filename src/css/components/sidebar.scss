@@ -1,0 +1,44 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  padding: 10px 20px;
+  font-size: 24px;
+  background-color: #fff;
+  color: #333;
+  height: 100%;
+
+  h2 {
+    margin: 0;
+  }
+
+  .sidebar-description {
+    font-weight: 300;
+    font-size: 18px;
+    color: var(--gray);
+  }
+
+  .sidebar-note {
+    margin: 15px;
+  }
+
+  .sidebar-notes {
+    height: calc(100vh - 227px);
+    overflow-y: scroll;
+  }
+
+  .sidebar-add {
+    background-color: var(--black);
+    height: 40px;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 10px;
+
+    .plus-icon {
+      height: 20px;
+      fill: var(--primary);
+      margin-right: 10px;
+      margin-top: 7px;
+    }
+  }
+}

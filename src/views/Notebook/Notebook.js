@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 
 import Sidebar from './Sidebar';
+import ViewNote from './ViewNote';
 import Loading from '../../common/components/Loading';
 
 class Notebook extends Component {
@@ -20,6 +21,10 @@ class Notebook extends Component {
     postNote: () => {},
   };
 
+  state = {
+    activeNote: null,
+  };
+
   componentDidMount() {
     const { getNotebook, match } = this.props;
     getNotebook(match.params.notebookId);
@@ -27,14 +32,20 @@ class Notebook extends Component {
 
   render() {
     const { notebook, loading, postNote } = this.props;
+    const { activeNote } = this.state;
 
     if (loading) {
       return <Loading />;
     }
-    console.log('---', loading, notebook.toJS());
+
     return (
-      <div>
-        <Sidebar notebook={notebook} addNote={postNote} />
+      <div className="notebook">
+        <Sidebar
+          notebook={notebook}
+          addNote={postNote}
+          viewNote={activeNote => this.setState({ activeNote })}
+        />
+        <ViewNote note={activeNote} />
       </div>
     );
   }
