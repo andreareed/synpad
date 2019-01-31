@@ -20,4 +20,8 @@ module.exports = {
   async postNote(notebook_id) {
     return Note.query().insertAndFetch({ notebook_id });
   },
+
+  async patchNote(id, payload) {
+    return Note.query().patchAndFetchById(id, payload);
+  },
 };

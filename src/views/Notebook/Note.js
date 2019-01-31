@@ -17,6 +17,7 @@ const validationSchema = Yup.object().shape({
 class Note extends Component {
   static propTypes = {
     note: PropTypes.instanceOf(Map),
+    onSave: PropTypes.func.isRequired,
   };
 
   state = {
@@ -69,6 +70,7 @@ class Note extends Component {
       <div className="note">
         <Formik
           initialValues={{
+            notebook_id: note.get('notebook_id'),
             title: note.get('title') || '',
             content: note.get('content') || '',
           }}
@@ -76,7 +78,7 @@ class Note extends Component {
           validationSchema={validationSchema}
           onSubmit={(values, actions) => {
             console.log(values);
-            onSave(values).then(action => {
+            onSave(note.get('id'), values).then(action => {
               console.log(action);
             });
           }}

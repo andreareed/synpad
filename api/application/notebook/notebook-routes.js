@@ -5,6 +5,7 @@ const {
 } = require('@synapsestudios/hapi-async-validation');
 
 const Notebook = require('./Notebook');
+const Note = require('./Note');
 const controller = require('./notebook-controller');
 
 module.exports = {
@@ -66,6 +67,50 @@ module.exports = {
               },
               {
                 notebook: rowExists(Notebook, 'id', Notebook.notFoundMessage, { convert: false }),
+              }
+            ),
+          },
+        },
+      },
+      {
+        method: 'PATCH',
+        path: '/notebooks/{notebook}/notes/{note}',
+        handler: controller.patchNoteHandler,
+        config: {
+          auth: {
+            strategies: ['jwt'],
+            scope: ['notebook-{params.notebook}', 'note-{params.note}'],
+          },
+          validate: {
+            params: asyncValidation(
+              {
+                notebook: Joi.string()
+                  .uuid()
+                  .required(),
+                note: Joi.string()
+                  .uuid()
+                  .required(),
+              },
+              {
+                notebook: rowExists(Notebook, 'id', Notebook.notFoundMessage, { convert: false }),
+                note: rowExistsWhere(
+                  Note,
+                  'id',
+                  'notebook_id',
+                  'values.notebook_id',
+                  Notebook.notFoundMessage,
+                  { convert: false }
+                ),
+                payload: {
+                  id: Joi.string()
+                    .uuid()
+                    .required(),
+                  notebook_id: Joi.string()
+                    .uuid()
+                    .required(),
+                  title: Joi.string().allow(''),
+                  description: Joi.string().allow(''),
+                },
               }
             ),
           },

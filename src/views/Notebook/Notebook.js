@@ -12,6 +12,7 @@ class Notebook extends Component {
     getNotebook: PropTypes.func.isRequired,
     loading: PropTypes.bool,
     postNote: PropTypes.func.isRequired,
+    patchNote: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -31,7 +32,7 @@ class Notebook extends Component {
   }
 
   render() {
-    const { notebook, loading, postNote } = this.props;
+    const { notebook, loading, postNote, patchNote } = this.props;
     const { activeNote } = this.state;
 
     if (loading) {
@@ -49,7 +50,7 @@ class Notebook extends Component {
           addNote={postNote}
           viewNote={activeNote => this.setState({ activeNote })}
         />
-        <Note note={activeNote} />
+        <Note note={activeNote} onSave={patchNote} />
       </div>
     );
   }

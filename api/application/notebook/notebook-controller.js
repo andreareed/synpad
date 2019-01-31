@@ -17,4 +17,8 @@ module.exports = {
   async postNoteHandler(request) {
     return service.postNote(request.params.notebook);
   },
+
+  async patchNoteHandler(request) {
+    return service.patchNote(request.params.note, request.payload);
+  },
 };
