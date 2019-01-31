@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Map, fromJS } from 'immutable';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
+import classNames from 'classnames';
 
 import ViewNote from './ViewNote';
 import ToggleSwitch from '../../common/components/forms/ToggleSwitch';
@@ -25,7 +26,7 @@ class Note extends Component {
   };
 
   renderDisplay = () => {
-    const { note } = this.props;
+    const { note, expand } = this.props;
     const { editing } = this.state;
 
     if (editing) {
@@ -60,14 +61,15 @@ class Note extends Component {
   };
 
   render() {
-    const { note, onSave, onSuccess } = this.props;
+    const { note, onSave, onSuccess, expand } = this.props;
 
     if (!note) {
       return null;
     }
 
     return (
-      <div className="note">
+      <div className={classNames('note', { expand })}>
+        {/* <div className="collapse"> */}
         <Formik
           initialValues={{
             notebook_id: note.get('notebook_id'),
@@ -87,6 +89,7 @@ class Note extends Component {
           render={this.renderForm}
         />
         {this.renderDisplay()}
+        {/* </div> */}
       </div>
     );
   }

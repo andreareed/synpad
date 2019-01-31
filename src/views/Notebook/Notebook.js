@@ -24,6 +24,7 @@ class Notebook extends Component {
 
   state = {
     activeNote: null,
+    collapseSidebar: false,
   };
 
   componentDidMount() {
@@ -37,7 +38,7 @@ class Notebook extends Component {
 
   render() {
     const { notebook, loading, postNote, patchNote } = this.props;
-    const { activeNote } = this.state;
+    const { activeNote, collapseSidebar } = this.state;
 
     if (loading) {
       return <Loading />;
@@ -53,8 +54,14 @@ class Notebook extends Component {
           notebook={notebook}
           addNote={postNote}
           viewNote={activeNote => this.setState({ activeNote })}
+          collapseSidebar={() => this.setState({ collapseSidebar: !collapseSidebar })}
         />
-        <Note note={activeNote} onSave={patchNote} onSuccess={this.onSuccess} />
+        <Note
+          note={activeNote}
+          onSave={patchNote}
+          onSuccess={this.onSuccess}
+          expand={collapseSidebar}
+        />
       </div>
     );
   }

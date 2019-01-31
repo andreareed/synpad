@@ -57,9 +57,7 @@ class App extends Component {
         <div className="app">
           <Switch>
             <Route exact path="/" component={Landing} />
-            <Route path="/">
-              <Redirect to="/" />
-            </Route>
+            <Redirect to="/" />
           </Switch>
         </div>
       );
@@ -71,6 +69,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={Notebooks} />
           <Route exact path="/:notebookId" component={Notebook} />
+          <Redirect to="/" />
         </Switch>
       </div>
     );

@@ -4,7 +4,6 @@ import classNames from 'classnames';
 
 const Icon = props => {
   const IconComponent = require(`./icons/${props.icon}`).default;
-
   return (
     <span className={classNames(['icon', props.className])} onClick={props.onClick}>
       <IconComponent />

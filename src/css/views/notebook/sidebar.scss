@@ -1,4 +1,6 @@
 .sidebar {
+  position: relative;
+  left: 0;
   display: flex;
   flex-direction: column;
   width: 300px;
@@ -9,23 +11,50 @@
   background-color: #fff;
   color: #333;
   height: 100%;
+  transition: left 0.3s ease;
+
+  .sidebar-tab {
+    position: fixed;
+    width: 17px;
+    top: 80px;
+    left: 295px;
+    background-color: #fff;
+    padding: 10px 10px 0 10px;
+    width: 25px;
+    text-align: center;
+    font-size: 24px;
+    transition: 0.3s ease;
+
+    .left-arrow-icon,
+    .right-arrow-icon {
+      height: 50px;
+    }
+
+    @media (max-width: 768px) {
+      top: 119px;
+    }
+  }
 
   h2 {
     margin: 0;
+    display: inline;
+    margin-right: 45px;
   }
 
   .sidebar-description {
     font-weight: 300;
     font-size: 18px;
     color: var(--gray);
+    height: 55px;
   }
 
   .sidebar-note {
     margin: 15px;
+    cursor: pointer;
   }
 
   .sidebar-notes {
-    height: calc(100vh - 235px);
+    height: calc(100vh - 265px);
     overflow-y: scroll;
   }
 
@@ -35,6 +64,7 @@
     color: #fff;
     text-align: center;
     margin-bottom: 10px;
+    cursor: pointer;
 
     .plus-icon {
       height: 20px;
@@ -46,5 +76,20 @@
       top: 0.1em;
       position: relative;
     }
+  }
+
+  .sidebar-header {
+    display: flex;
+    > div {
+      justify-content: flex-start;
+    }
+  }
+}
+
+.collapse {
+  left: -340px;
+
+  .sidebar-tab {
+    left: 0;
   }
 }

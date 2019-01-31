@@ -24,6 +24,10 @@
       top: 0.2em;
       position: relative;
     }
+    a {
+      text-decoration: none;
+      color: #fff;
+    }
   }
 
   .header-nav-links {
@@ -80,11 +84,21 @@
     }
   }
 
-  @media (max-width: 967px) {
+  @media (max-width: 768px) {
     justify-content: center;
     .header-brand {
       width: 100%;
       text-align: center;
+      margin-bottom: 20px;
+    }
+    .header-nav-links__dropdown-box {
+      text-align: center;
+      margin-left: 10px;
+      left: -30px;
+      right: -30px;
+      a {
+        margin-left: 10px;
+      }
     }
   }
 }

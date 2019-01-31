@@ -21,12 +21,11 @@ class Header extends Component {
     return (
       <div className="header">
         <div className="header-brand">
-          <Icon icon="Logo" /> SynPad
+          <NavLink exact to="/">
+            <Icon icon="Logo" /> SynPad
+          </NavLink>
         </div>
         <div className="header-nav-links">
-          <NavLink exact to="/">
-            Notebooks
-          </NavLink>
           <div className="header-nav-links__dropdown">
             <span className={classNames({ active: location.pathname === '/account' })}>
               {user.get('first_name')}

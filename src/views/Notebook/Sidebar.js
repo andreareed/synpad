@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
+import classNames from 'classnames';
 
 import Icon from '../../common/components/Icon/Icon';
 
@@ -16,6 +17,10 @@ class Sidebar extends Component {
     addNote: () => {},
   };
 
+  state = {
+    collapse: false,
+  };
+
   renderNote = note => {
     const { viewNote } = this.props;
     return (
@@ -26,15 +31,24 @@ class Sidebar extends Component {
   };
 
   render() {
-    const { notebook, addNote, loading } = this.props;
+    const { notebook, addNote, loading, collapseSidebar } = this.props;
+    const { collapse } = this.state;
 
     if (loading) {
       return null;
     }
 
     return (
-      <div className="sidebar">
-        <h2>{notebook.get('title')}</h2>
+      <div className={classNames('sidebar', { collapse })}>
+        <div className="sidebar-header">
+          <h2>{notebook.get('title')}</h2>
+          <div
+            className="sidebar-tab"
+            onClick={() => this.setState({ collapse: !collapse }, () => collapseSidebar())}
+          >
+            <Icon icon={collapse ? 'RightArrow' : 'LeftArrow'} />
+          </div>
+        </div>
         <div className="sidebar-description">{notebook.get('description')}</div>
         <div className="sidebar-add" onClick={() => addNote(notebook.get('id'))}>
           <Icon icon="Plus" />
