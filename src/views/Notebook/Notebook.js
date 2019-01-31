@@ -31,6 +31,10 @@ class Notebook extends Component {
     getNotebook(match.params.notebookId);
   }
 
+  onSuccess = note => {
+    this.setState({ activeNote: note });
+  };
+
   render() {
     const { notebook, loading, postNote, patchNote } = this.props;
     const { activeNote } = this.state;
@@ -50,7 +54,7 @@ class Notebook extends Component {
           addNote={postNote}
           viewNote={activeNote => this.setState({ activeNote })}
         />
-        <Note note={activeNote} onSave={patchNote} />
+        <Note note={activeNote} onSave={patchNote} onSuccess={this.onSuccess} />
       </div>
     );
   }

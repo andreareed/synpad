@@ -9,6 +9,7 @@ class ViewNote extends Component {
 
   render() {
     const { note } = this.props;
+
     if (!note) {
       return null;
     }

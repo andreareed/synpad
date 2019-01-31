@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Map } from 'immutable';
+import { Map, fromJS } from 'immutable';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 
@@ -36,7 +36,6 @@ class Note extends Component {
 
   toggleSwitch = submitForm => {
     const { editing } = this.state;
-
     if (editing) {
       submitForm();
     }
@@ -61,11 +60,12 @@ class Note extends Component {
   };
 
   render() {
-    const { note, onSave } = this.props;
+    const { note, onSave, onSuccess } = this.props;
 
     if (!note) {
       return null;
     }
+
     return (
       <div className="note">
         <Formik
@@ -77,9 +77,11 @@ class Note extends Component {
           enableReinitialize
           validationSchema={validationSchema}
           onSubmit={(values, actions) => {
-            console.log(values);
             onSave(note.get('id'), values).then(action => {
-              console.log(action);
+              if (action.response.ok) {
+                onSuccess(fromJS(action.json));
+              }
+              actions.setSubmitting(false);
             });
           }}
           render={this.renderForm}

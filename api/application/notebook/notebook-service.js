@@ -22,6 +22,9 @@ module.exports = {
   },
 
   async patchNote(id, payload) {
+    if (!payload.title) {
+      payload.title = 'Untitled';
+    }
     return Note.query().patchAndFetchById(id, payload);
   },
 };
