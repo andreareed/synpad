@@ -4,7 +4,7 @@ const defaults = {};
 
 const environments = {
   development: {
-    apiUrl: 'http://localhost:6000/api/',
+    apiUrl: 'http://localhost:8500/api/',
   },
 };
 
