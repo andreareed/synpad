@@ -1,5 +1,5 @@
 {
-  "name": "auth-base",
+  "name": "synpad",
   "version": "0.1.0",
   "private": true,
   "main": "api/index.js",
