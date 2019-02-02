@@ -1,0 +1,60 @@
+.account {
+  padding-top: 50px;
+
+  .account-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .account-row {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      font-size: 36px;
+      width: 100%;
+      max-width: 600px;
+
+      label {
+        width: 100px;
+        min-width: 150px;
+        color: var(--primary);
+      }
+
+      > div {
+        font-size: 28px;
+      }
+
+      span {
+        font-size: 18px;
+        color: var(--primary);
+        margin-left: 10px;
+        cursor: pointer;
+      }
+    }
+
+    .account-form {
+      width: 100%;
+      max-width: 600px;
+      margin-top: 30px;
+
+      .input-wrapper__label {
+        font-size: 22px;
+      }
+
+      button {
+        float: right;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .account-row {
+        font-size: 28px;
+        flex-direction: column;
+        align-items: flex-start;
+        > div {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}

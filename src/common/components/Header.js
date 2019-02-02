@@ -27,9 +27,7 @@ class Header extends Component {
         </div>
         <div className="header-nav-links">
           <div className="header-nav-links__dropdown">
-            <span className={classNames({ active: location.pathname === '/account' })}>
-              {user.get('first_name')}
-            </span>
+            <span className={classNames({ active: location.pathname === '/account' })}>{user.get('first_name')}</span>
             <div className="header-nav-links__dropdown-box">
               <Link to="/account">Account</Link>
               <Link to="/" onClick={logout}>

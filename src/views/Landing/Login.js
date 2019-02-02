@@ -55,10 +55,8 @@ class Login extends Component {
           loginUser(values).then(action => {
             if (action.response.ok) {
               !!onSuccess && onSuccess();
-            } else {
-              if (action.json.message) {
-                this.setState({ error: action.json.message });
-              }
+            } else if (action.json && action.json.message) {
+              this.setState({ error: action.json.message });
             }
             actions.setSubmitting(false);
           });
