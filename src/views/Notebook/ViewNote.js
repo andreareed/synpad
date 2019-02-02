@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Map } from 'immutable';
 import Markdown from 'markdown-it';
 
 class ViewNote extends Component {
   static propTypes = {
-    note: PropTypes.instanceOf(Map),
+    note: PropTypes.object,
   };
 
   render() {
@@ -17,10 +16,7 @@ class ViewNote extends Component {
     }
     return (
       <div className="view-note">
-        <div
-          className="view-note-content"
-          dangerouslySetInnerHTML={{ __html: md.render(note.get('content') || '') }}
-        />
+        <div className="view-note-content" dangerouslySetInnerHTML={{ __html: md.render(note.content || '') }} />
       </div>
     );
   }

@@ -43,7 +43,7 @@ class Note extends Component {
     this.setState({ editing: !editing });
   };
 
-  renderForm = ({ handleSubmit }) => {
+  renderForm = ({ handleSubmit, values }) => {
     const { editing } = this.state;
 
     return (
@@ -53,9 +53,10 @@ class Note extends Component {
             <ToggleSwitch onToggle={() => this.toggleSwitch(handleSubmit)} />
             {editing ? 'Save' : 'Edit'}
           </div>
-          <Field name="title" readOnly={!editing} className="note-header-title" />
+          <Field name="title" readOnly={!editing} autoComplete="off" className="note-header-title" />
         </div>
         {editing && <Field component="textarea" name="content" />}
+        {this.renderDisplay(values)}
       </Form>
     );
   };
@@ -69,7 +70,6 @@ class Note extends Component {
 
     return (
       <div className={classNames('note', { expand })}>
-        {/* <div className="collapse"> */}
         <Formik
           initialValues={{
             notebook_id: note.get('notebook_id'),
@@ -88,8 +88,6 @@ class Note extends Component {
           }}
           render={this.renderForm}
         />
-        {this.renderDisplay()}
-        {/* </div> */}
       </div>
     );
   }
