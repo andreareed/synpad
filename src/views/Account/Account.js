@@ -101,7 +101,6 @@ class Account extends Component {
 
   render() {
     const { user, updateUser } = this.props;
-    const { editing } = this.state;
 
     return (
       <div className="account container">

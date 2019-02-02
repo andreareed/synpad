@@ -1,5 +1,3 @@
-import store from 'store2';
-
 export default () => next => action => {
   if (!action.promise) {
     return next(action);
@@ -22,7 +20,6 @@ export default () => next => action => {
     response => {
       if (response.status === 401) {
         return next(() => {
-          store.clearAll();
           window.location.href = '/';
         });
       }
@@ -38,10 +35,7 @@ export default () => next => action => {
 
       return response
         .json()
-        .then(
-          json => next(makeAction('FAILURE', { response, json })),
-          () => next(makeAction('FAILURE', { response }))
-        );
+        .then(json => next(makeAction('FAILURE', { response, json })), () => next(makeAction('FAILURE', { response })));
     },
     error => {
       next(makeAction('ERROR', { error }));

@@ -82,12 +82,13 @@ class Notebooks extends Component {
     return (
       <div className="notebooks">
         <div className="container">
-          <Icon icon="Plus" onClick={this.toggleModal} />
+          <div className="notebooks-add">
+            <Icon icon="Plus" onClick={this.toggleModal} />
+            <h1>Add Notebook</h1>
+          </div>
+          <div className="notebooks-card-wrapper">{notebooks.map(notebook => this.renderNotebook(notebook))}</div>
+          {this.renderNotebookModal()}
         </div>
-        <div className="notebooks-card-wrapper">
-          {notebooks.map(notebook => this.renderNotebook(notebook))}
-        </div>
-        {this.renderNotebookModal()}
       </div>
     );
   }
