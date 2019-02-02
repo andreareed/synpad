@@ -23,6 +23,7 @@ class Note extends Component {
 
   state = {
     editing: false,
+    error: '',
   };
 
   renderDisplay = () => {
@@ -40,7 +41,7 @@ class Note extends Component {
     if (editing) {
       submitForm();
     }
-    this.setState({ editing: !editing });
+    this.setState({ editing: !editing, error: '' });
   };
 
   renderForm = ({ handleSubmit, values }) => {
@@ -50,7 +51,7 @@ class Note extends Component {
       <Form>
         <div className="note-header">
           <div className="note-header-toggle">
-            <ToggleSwitch onToggle={() => this.toggleSwitch(handleSubmit)} />
+            <ToggleSwitch onToggle={() => this.toggleSwitch(handleSubmit)} checked={editing} />
             {editing ? 'Save' : 'Edit'}
           </div>
           <Field name="title" readOnly={!editing} autoComplete="off" className="note-header-title" />
@@ -63,6 +64,7 @@ class Note extends Component {
 
   render() {
     const { note, onSave, onSuccess, expand } = this.props;
+    const { error } = this.state;
 
     if (!note) {
       return null;
@@ -70,6 +72,7 @@ class Note extends Component {
 
     return (
       <div className={classNames('note', { expand })}>
+        {error && <div className="form-error">{error}</div>}
         <Formik
           initialValues={{
             notebook_id: note.get('notebook_id'),
@@ -82,6 +85,9 @@ class Note extends Component {
             onSave(note.get('id'), values).then(action => {
               if (action.response.ok) {
                 onSuccess(fromJS(action.json));
+              } else {
+                this.toggleSwitch();
+                this.setState({ error: 'Oops! Something went wrong, changes not saved' });
               }
               actions.setSubmitting(false);
             });
