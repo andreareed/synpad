@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "main": "api/index.js",
-  "proxy": "http://localhost:9000/api",
+  "proxy": "http://localhost:6000/api",
   "dependencies": {
     "@synapsestudios/fetch-client": "^1.0.4",
     "@synapsestudios/hapi-async-validation": "^2.1.0",

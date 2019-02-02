@@ -43,7 +43,7 @@ module.exports = {
         },
       },
     },
-    port: 9000,
+    port: 6000,
   },
   register: {
     plugins: [JWTAuth, Inert, Bootstrap, authRoutes, userRoutes, notebookRoutes],
