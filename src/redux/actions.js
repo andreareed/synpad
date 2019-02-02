@@ -4,6 +4,12 @@ export const REGISTER_USER = 'REGISTER_USER';
 export const LOGIN_USER = 'LOGIN_USER';
 export const VERIFY_TOKEN = 'VERIFY_TOKEN';
 export const LOGOUT_USER = 'LOGOUT_USER';
+export const UPDATE_USER = 'UPDATE_USER';
+
+export const updateUser = (userId, payload) => ({
+  type: UPDATE_USER,
+  promise: client.patch(`/users/${userId}`, payload),
+});
 
 export const registerUser = payload => ({
   type: REGISTER_USER,

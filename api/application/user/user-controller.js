@@ -1,3 +1,4 @@
+const Boom = require('boom');
 const bcrypt = require('bcrypt');
 const JWT = require('jsonwebtoken');
 
@@ -19,5 +20,23 @@ module.exports = {
       expiresIn: '36h',
     });
     return user;
+  },
+
+  async updateUserHandler(request) {
+    const { user } = request.params;
+    const { email, password, newPassword, first_name, last_name } = request.payload;
+
+    if (newPassword) {
+      const passwordsMatch = await bcrypt.compare(password, user.password);
+      if (!passwordsMatch) {
+        return Boom.badData('Current password is incorrect');
+      }
+      request.payload.password = await bcrypt.hash(newPassword, saltRounds);
+    }
+    delete request.payload.password;
+    delete request.payload.newPassword;
+    delete request.payload.confirmPassword;
+
+    return service.patchUser(user.id, request.payload);
   },
 };

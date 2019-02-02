@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Account from './Account';
 
-import {} from './actions';
+import { updateUser } from '../../redux/actions';
 
 const mapStateToProps = state => {
   return {
@@ -10,7 +10,9 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    updateUser: (userId, payload) => dispatch(updateUser(userId, payload)),
+  };
 };
 
 export default connect(

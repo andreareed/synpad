@@ -15,6 +15,12 @@ class User extends Model {
     return 'Invalid user';
   }
 
+  static get namedFilters() {
+    return {
+      publicUserProfile: builder => builder.clearSelect().columns(['first_name', 'last_name', 'email', 'id']),
+    };
+  }
+
   static get relationMappings() {
     return {
       notebooks: {

@@ -4,7 +4,7 @@ import localstorage from 'store2';
 
 import notebooks from '../views/Notebooks/reducers';
 import notebook from '../views/Notebook/reducers';
-import { REGISTER_USER, LOGIN_USER, VERIFY_TOKEN, LOGOUT_USER } from './actions';
+import { REGISTER_USER, LOGIN_USER, VERIFY_TOKEN, LOGOUT_USER, UPDATE_USER } from './actions';
 
 const loading = (state = false, action) => {
   switch (action.type) {
@@ -37,6 +37,9 @@ const user = (state = null, action) => {
     case LOGOUT_USER:
       localstorage.clear();
       return null;
+
+    case `${UPDATE_USER}_SUCCESS`:
+      return fromJS(action.json);
 
     default:
       return state;

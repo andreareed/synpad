@@ -9,7 +9,9 @@ module.exports = {
   },
 
   async findById(id) {
-    return User.query().findById(id);
+    return User.query()
+      .findById(id)
+      .applyFilter('publicUserProfile');
   },
 
   async findByEmail(email) {
@@ -28,5 +30,9 @@ module.exports = {
       });
   },
 
-  async login(username, password) {},
+  async patchUser(user_id, data) {
+    return User.query()
+      .patchAndFetchById(user_id, data)
+      .applyFilter('publicUserProfile');
+  },
 };

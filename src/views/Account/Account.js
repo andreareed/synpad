@@ -22,19 +22,22 @@ const validationSchema = Yup.object().shape({
   changingPassword: Yup.boolean(),
   password: Yup.string()
     .trim()
-    .required('Enter your current password'),
+    .when('changingPassword', {
+      is: true,
+      then: Yup.string().required('Enter your current password'),
+    }),
   newPassword: Yup.string()
     .trim()
     .when('changingPassword', {
       is: true,
       then: Yup.string().required('Enter a new password'),
     }),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref('newPassword'), null], 'Passwords do not match')
-    .when('changingPassword', {
-      is: true,
-      then: Yup.string().required('Confirm password is required'),
-    }),
+  confirmPassword: Yup.string().when('changingPassword', {
+    is: true,
+    then: Yup.string()
+      .oneOf([Yup.ref('newPassword'), null], 'Passwords do not match')
+      .required('Confirm password is required'),
+  }),
 });
 
 class Account extends Component {
@@ -44,10 +47,11 @@ class Account extends Component {
 
   state = {
     editing: null,
+    error: null,
   };
 
   renderForm = ({ handleSubmit, errors, touched, setFieldValue, values }) => {
-    const { editing } = this.state;
+    const { editing, error } = this.state;
 
     if (!editing) {
       return null;
@@ -87,6 +91,7 @@ class Account extends Component {
             </InputWrapper>
           </Fragment>
         )}
+        {error && <div className="form-error">{error}</div>}
         <button className="btn btn-primary" type="submit">
           Update
         </button>
@@ -95,7 +100,7 @@ class Account extends Component {
   };
 
   render() {
-    const { user } = this.props;
+    const { user, updateUser } = this.props;
     const { editing } = this.state;
 
     return (
@@ -134,7 +139,16 @@ class Account extends Component {
             enableReinitialize
             validationSchema={validationSchema}
             onSubmit={(values, actions) => {
-              console.log(values);
+              const preparedValues = Object.assign({}, values);
+              delete preparedValues.changingPassword;
+              updateUser(user.get('id'), preparedValues).then(action => {
+                if (action.response.ok) {
+                  actions.resetForm();
+                  this.setState({ editing: null, error: null });
+                } else if (action.json) {
+                  this.setState({ error: action.json.message });
+                }
+              });
             }}
             render={this.renderForm}
           />
