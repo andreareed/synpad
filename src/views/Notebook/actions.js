@@ -19,4 +19,5 @@ export const patchNote = (noteId, payload) => ({
   type: PATCH_NOTE,
   promise: client.patch(`/notebooks/${payload.notebook_id}/notes/${noteId}`, payload),
   noteId,
+  payload,
 });

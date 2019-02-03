@@ -33,9 +33,15 @@ class Notebook extends Component {
     getNotebook(match.params.notebookId);
   }
 
-  onUpdateNote = note => {
-    this.setState({ activeNote: note });
-  };
+  componentDidUpdate(prevProps) {
+    const { notebook } = this.props;
+    const { activeNote } = this.state;
+
+    if (prevProps !== this.props && prevProps.notebook.get('notes')) {
+      const index = prevProps.notebook.get('notes').findIndex(note => note.get('id') === activeNote.get('id'));
+      this.setState({ activeNote: notebook.getIn(['notes', index]) });
+    }
+  }
 
   onDeleteNote = () => {
     this.setState({ collapseSidebar: false, activeNote: null });
@@ -63,13 +69,7 @@ class Notebook extends Component {
           collapseSidebar={() => this.setState({ collapseSidebar: !collapseSidebar })}
           loading={notebookUpdating}
         />
-        <Note
-          note={activeNote}
-          onSave={patchNote}
-          onUpdate={this.onUpdateNote}
-          expand={collapseSidebar}
-          deleteNote={this.onDeleteNote}
-        />
+        <Note note={activeNote} onSave={patchNote} expand={collapseSidebar} deleteNote={this.onDeleteNote} />
       </div>
     );
   }

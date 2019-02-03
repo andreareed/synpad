@@ -32,6 +32,10 @@ class Note extends Model {
     };
   }
 
+  $beforeUpdate() {
+    this.updated_at = new Date().toISOString();
+  }
+
   $beforeInsert() {
     this.id = uuid.v4();
     this.created_at = new Date().toISOString();

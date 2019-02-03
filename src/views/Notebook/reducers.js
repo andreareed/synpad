@@ -32,6 +32,14 @@ const notebook = (state = Map({ loading: false, data: Map() }), action) => {
       state = state.set('loading', false);
       return state.setIn(['data', 'notes'], state.getIn(['data', 'notes']).push(fromJS(action.json)));
 
+    case `${PATCH_NOTE}_REQUEST`:
+      state = state.removeIn([
+        'data',
+        'notes',
+        state.getIn(['data', 'notes']).findIndex(note => note.get('id') === action.noteId),
+      ]);
+      return state.setIn(['data', 'notes'], state.getIn(['data', 'notes']).splice(0, 0, fromJS(action.payload)));
+
     case `${PATCH_NOTE}_SUCCESS`:
       return state.setIn(
         ['data', 'notes', state.getIn(['data', 'notes']).findIndex(note => note.get('id') === action.noteId)],

@@ -10,7 +10,8 @@ module.exports = {
   async getNotebook(id) {
     return Notebook.query()
       .findById(id)
-      .eager({ notes: true });
+      .joinEager({ notes: true })
+      .orderByRaw('notes.updated_at DESC nulls last, CASE WHEN notes.updated_at IS NULL THEN notes.created_at END');
   },
 
   async postNotebook(user_id, payload) {

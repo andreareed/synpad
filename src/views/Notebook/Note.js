@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Map, fromJS } from 'immutable';
+import { Map } from 'immutable';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import classNames from 'classnames';
@@ -22,7 +22,6 @@ class Note extends Component {
   static propTypes = {
     note: PropTypes.instanceOf(Map),
     onSave: PropTypes.func.isRequired,
-    onUpdate: PropTypes.func,
   };
 
   state = {
@@ -43,12 +42,10 @@ class Note extends Component {
   };
 
   toggleSwitch = (values, submitForm) => {
-    const { onUpdate } = this.props;
     const { editing } = this.state;
 
     if (editing) {
       submitForm();
-      onUpdate(fromJS(values));
     }
     this.setState({ editing: !editing, error: '' });
   };
@@ -117,7 +114,6 @@ class Note extends Component {
   render() {
     const { note, onSave, expand } = this.props;
     const { error } = this.state;
-
     if (!note) {
       return null;
     }
