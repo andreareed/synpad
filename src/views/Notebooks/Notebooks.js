@@ -52,11 +52,12 @@ class Notebooks extends Component {
   );
 
   postNotebook = title => {
-    const { postNotebook } = this.props;
+    const { postNotebook, history } = this.props;
 
     postNotebook(title).then(action => {
-      console.log(action);
-      this.setState({ addingNotebook: false });
+      if (action.response.ok) {
+        this.setState({ addingNotebook: false }, () => history.push(`/${action.json.id}`));
+      }
     });
   };
 

@@ -7,10 +7,13 @@ import { DELETE_NOTEBOOK } from '../Notebook/actions';
 const loading = (state = false, action) => {
   switch (action.type) {
     case `${GET_NOTEBOOKS}_REQUEST`:
+    case `${POST_NOTEBOOK}_REQUEST`:
       return true;
 
     case `${GET_NOTEBOOKS}_SUCCESS`:
     case `${GET_NOTEBOOKS}_FAILURE`:
+    case `${POST_NOTEBOOK}_SUCCESS`:
+    case `${POST_NOTEBOOK}_FAILURE`:
       return false;
 
     default:
