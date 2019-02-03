@@ -33,7 +33,7 @@ class Notebook extends Component {
     getNotebook(match.params.notebookId);
   }
 
-  onSuccess = note => {
+  onUpdateNote = note => {
     this.setState({ activeNote: note });
   };
 
@@ -59,7 +59,7 @@ class Notebook extends Component {
           collapseSidebar={() => this.setState({ collapseSidebar: !collapseSidebar })}
           loading={notebookUpdating}
         />
-        <Note note={activeNote} onSave={patchNote} onSuccess={this.onSuccess} expand={collapseSidebar} />
+        <Note note={activeNote} onSave={patchNote} onUpdate={this.onUpdateNote} expand={collapseSidebar} />
       </div>
     );
   }

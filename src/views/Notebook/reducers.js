@@ -34,7 +34,7 @@ const notebook = (state = Map({ loading: false, data: Map() }), action) => {
 
     case `${PATCH_NOTE}_SUCCESS`:
       return state.setIn(
-        ['data', 'notes', state.get('notes').findIndex(note => note.get('id') === action.noteId)],
+        ['data', 'notes', state.getIn(['data', 'notes']).findIndex(note => note.get('id') === action.noteId)],
         fromJS(action.json)
       );
 
