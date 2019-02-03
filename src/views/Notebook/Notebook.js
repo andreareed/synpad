@@ -14,7 +14,7 @@ class Notebook extends Component {
     postNote: PropTypes.func.isRequired,
     patchNote: PropTypes.func.isRequired,
     notebookUpdating: PropTypes.bool,
-    deletePost: PropTypes.func.isRequired,
+    deleteNote: PropTypes.func.isRequired,
   };
 
   static defaultProps = {

@@ -5,6 +5,10 @@
   min-width: 300px;
   max-width: 100vw;
   height: 100%;
+
+  @media (max-width: 768px) {
+    top: 120px;
+  }
 }
 .sidebar {
   position: relative;
@@ -12,8 +16,6 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  // min-width: 300px;
-  // max-width: 100vw;
   padding: 10px 20px;
   font-size: 24px;
   background-color: #fff;
@@ -58,8 +60,12 @@
   }
 
   .sidebar-notes {
-    height: calc(100vh - 257px);
+    height: calc(100vh - 310px);
     overflow-y: scroll;
+
+    @media (max-width: 768px) {
+      height: calc(100vh - 350px);
+    }
   }
 
   .sidebar-add {
@@ -93,6 +99,22 @@
   .sidebar-loading {
     width: 100%;
     height: 150px;
+  }
+}
+
+.sidebar-edit-notebook {
+  background-color: var(--primary);
+  font-size: 24px;
+  padding: 10px 20px;
+  width: 300px;
+
+  .trash-icon {
+    height: 20px;
+    float: right;
+    fill: var(--red);
+    align-self: center;
+    top: 0.2em;
+    position: relative;
   }
 }
 
