@@ -17,7 +17,6 @@ exports.up = async knex => {
     table.string('title').defaultsTo('Untitled');
     table.text('content');
     table.timestamp('created_at').notNullable();
-    table.timestamp('updated_at');
     table.timestamp('deleted_at');
   });
 };
