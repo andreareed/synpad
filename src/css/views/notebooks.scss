@@ -6,6 +6,21 @@
     cursor: pointer;
   }
 
+  .notebookDisplay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 80px 20px 20px 360px;
+    padding: 20px;
+    font-size: 18px;
+    transition: 0.3s ease;
+
+    .notebook-add-form .input-wrapper__label {
+      color: #fff;
+      font-size: 24px;
+    }
+  }
+
   .notebooks-add {
     margin-top: 30px;
     display: flex;
@@ -69,8 +84,7 @@
   max-width: 400px;
   padding: 10px 20px;
 
-  .notebook-form-buttons {
-    display: flex;
-    justify-content: space-between;
+  .notebook-form-buttons button {
+    width: 100%;
   }
 }

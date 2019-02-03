@@ -43,8 +43,9 @@ module.exports = {
           },
           validate: {
             payload: {
-              title: Joi.string().allow(''),
-              description: Joi.string().allow(''),
+              title: Joi.string()
+                .max(65)
+                .allow(''),
             },
           },
         },

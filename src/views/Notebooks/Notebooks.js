@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
-import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 
 import NotebookForm from './NotebookForm';
 import Sidebar from '../Notebook/Sidebar';
@@ -9,7 +9,6 @@ import Sidebar from '../Notebook/Sidebar';
 import Loading from '../../common/components/Loading';
 import Icon from '../../common/components/Icon/Icon';
 import NoContentPlaceholder from '../../common/components/NoContentPlaceholder';
-import Modal from '../../common/components/Modal';
 
 class Notebooks extends Component {
   static propTypes = {
@@ -52,9 +51,18 @@ class Notebooks extends Component {
     </div>
   );
 
+  postNotebook = title => {
+    const { postNotebook } = this.props;
+
+    postNotebook(title).then(action => {
+      console.log(action);
+      this.setState({ addingNotebook: false });
+    });
+  };
+
   render() {
     const { loading, notebooks, history } = this.props;
-    const { collapseSidebar } = this.state;
+    const { collapseSidebar, addingNotebook } = this.state;
 
     if (loading) {
       return <Loading />;
@@ -72,7 +80,10 @@ class Notebooks extends Component {
           deleteItem={() => this.setState({ deleteNotebookModalVisible: true })}
           collapseSidebar={() => this.setState({ collapseSidebar: !collapseSidebar })}
         />
-        {!notebooks.size && this.renderPlaceholder()}
+        <div className={classNames('notebookDisplay', { expand: collapseSidebar })}>
+          {!addingNotebook && !notebooks.size && this.renderPlaceholder()}
+          {addingNotebook && <NotebookForm className="notebook-add-form" onSubmit={this.postNotebook} />}
+        </div>
       </div>
     );
   }

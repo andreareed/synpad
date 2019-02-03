@@ -7,15 +7,14 @@ import * as Yup from 'yup';
 import InputWrapper from '../../common/components/forms/InputWrapper';
 
 const validationSchema = Yup.object().shape({
-  title: Yup.string().max(255),
-  description: Yup.string().max(255),
+  title: Yup.string().max(65),
 });
 
 class NotebookForm extends Component {
   static propTypes = {
     notebook: PropTypes.instanceOf(Map),
     onSubmit: PropTypes.func,
-    onClose: PropTypes.func,
+    className: PropTypes.string,
   };
 
   static defaultProps = {
@@ -24,16 +23,10 @@ class NotebookForm extends Component {
 
   renderForm = ({ errors, touched }) => (
     <Form className="notebook-form">
-      <InputWrapper label="Notebook Name" validation={touched.title && errors.title}>
+      <InputWrapper label="Notebook Name" validation={touched.title && errors.title} className={this.props.className}>
         <Field type="text" name="title" />
       </InputWrapper>
-      <InputWrapper label="Description" validation={touched.description && errors.description}>
-        <Field component="textarea" name="description" />
-      </InputWrapper>
       <div className="notebook-form-buttons">
-        <button className="btn" onClick={this.props.onCancel}>
-          Cancel
-        </button>
         <button type="submit" className="btn btn-primary">
           Create!
         </button>
@@ -47,23 +40,18 @@ class NotebookForm extends Component {
         validationSchema={validationSchema}
         initialValues={{
           title: '',
-          description: '',
         }}
         enableReinitialize
         render={this.renderForm}
         onSubmit={(values, { setSubmitting }) => {
-          const { onSubmit, onClose } = this.props;
+          const { onSubmit } = this.props;
           for (const key in values) {
             if (!values[key]) {
               delete values[key];
             }
           }
-          onSubmit(values).then(action => {
-            if (action.response.ok) {
-              onClose();
-            }
-            setSubmitting(false);
-          });
+          onSubmit(values);
+          setSubmitting(false);
         }}
       />
     );
