@@ -7,6 +7,9 @@ import classNames from 'classnames';
 
 import ViewNote from './ViewNote';
 import ToggleSwitch from '../../common/components/forms/ToggleSwitch';
+import InputWrapper from '../../common/components/forms/InputWrapper';
+import Icon from '../../common/components/Icon/Icon';
+import Modal from '../../common/components/Modal';
 
 const validationSchema = Yup.object().shape({
   title: Yup.string()
@@ -25,6 +28,8 @@ class Note extends Component {
   state = {
     editing: false,
     error: '',
+    deleteModalVisible: false,
+    deleteConfirmation: '',
   };
 
   renderDisplay = () => {
@@ -48,6 +53,46 @@ class Note extends Component {
     this.setState({ editing: !editing, error: '' });
   };
 
+  toggleModal = () => this.setState({ notebookModalVisible: !this.state.notebookModalVisible });
+
+  confirmDelete = e => this.setState({ deleteConfirmation: '', deleteModalVisible: false }, this.props.deleteNote);
+
+  renderDeleteModal = () => {
+    const { note } = this.props;
+    const { deleteModalVisible, deleteConfirmation } = this.state;
+
+    return (
+      <Modal isVisible={deleteModalVisible} onClose={this.toggleModal} className="note-delete-modal">
+        <h1>Delete this note?</h1>
+        <div className="note-delete-message">
+          This action cannot be undone. If you're sure, type <span>{note.get('title')}</span> to confirm and this note
+          will be deleted.
+          <form>
+            <InputWrapper>
+              <input
+                value={deleteConfirmation}
+                onChange={({ target }) => this.setState({ deleteConfirmation: target.value })}
+              />
+            </InputWrapper>
+            <div className="note-delete-buttons">
+              <button type="button" className="btn">
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="btn btn-danger"
+                onClick={this.confirmDelete}
+                disabled={deleteConfirmation !== note.get('title')}
+              >
+                Delete
+              </button>
+            </div>
+          </form>
+        </div>
+      </Modal>
+    );
+  };
+
   renderForm = ({ handleSubmit, values }) => {
     const { editing } = this.state;
 
@@ -59,6 +104,9 @@ class Note extends Component {
             {editing ? 'Save' : 'Edit'}
           </div>
           <Field name="title" readOnly={!editing} autoComplete="off" className="note-header-title" />
+          <div onClick={() => this.setState({ deleteModalVisible: true })}>
+            <Icon icon="Trash" />
+          </div>
         </div>
         {editing && <Field component="textarea" name="content" />}
         {this.renderDisplay(values)}
@@ -97,6 +145,7 @@ class Note extends Component {
           }}
           render={this.renderForm}
         />
+        {this.renderDeleteModal()}
       </div>
     );
   }

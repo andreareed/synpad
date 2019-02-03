@@ -5,9 +5,19 @@
   border-radius: 3px;
   font-weight: 700;
   font-family: 'Orbitron', sans-serif;
+
+  &:disabled {
+    opacity: 0.8;
+  }
 }
 
 .btn-primary {
   background-color: var(--primary);
   border-color: var(--primary);
+}
+
+.btn-danger {
+  background-color: var(--red);
+  border-color: var(--red);
+  color: #fff;
 }

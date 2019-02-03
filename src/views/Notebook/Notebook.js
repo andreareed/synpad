@@ -37,6 +37,10 @@ class Notebook extends Component {
     this.setState({ activeNote: note });
   };
 
+  onDeleteNote = () => {
+    this.setState({ collapseSidebar: false, activeNote: null });
+  };
+
   render() {
     const { notebook, loading, postNote, patchNote, notebookUpdating } = this.props;
     const { activeNote, collapseSidebar } = this.state;
@@ -59,7 +63,13 @@ class Notebook extends Component {
           collapseSidebar={() => this.setState({ collapseSidebar: !collapseSidebar })}
           loading={notebookUpdating}
         />
-        <Note note={activeNote} onSave={patchNote} onUpdate={this.onUpdateNote} expand={collapseSidebar} />
+        <Note
+          note={activeNote}
+          onSave={patchNote}
+          onUpdate={this.onUpdateNote}
+          expand={collapseSidebar}
+          deleteNote={this.onDeleteNote}
+        />
       </div>
     );
   }
