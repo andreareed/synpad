@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Map } from 'immutable';
+import { Map, fromJS } from 'immutable';
 import { Link } from 'react-router-dom';
 
 import Sidebar from './Sidebar';
@@ -46,8 +46,8 @@ class Notebook extends Component {
     const { activeNote } = this.state;
 
     if (prevProps !== this.props && prevProps.notebook.get('notes') && activeNote) {
-      const index = prevProps.notebook.get('notes').findIndex(note => note.get('id') === activeNote.get('id'));
-      this.setState({ activeNote: notebook.getIn(['notes', index]) });
+      const updatedNote = notebook.get('notes').find(note => note.get('id') === activeNote.get('id'));
+      this.setState({ activeNote: updatedNote });
     }
   }
 
@@ -141,8 +141,17 @@ class Notebook extends Component {
     deleteNotebook(notebook.get('id')).then(() => history.push('/'));
   };
 
+  postNote = () => {
+    const { notebook, postNote } = this.props;
+    postNote(notebook.get('id')).then(action => {
+      if (action.response.ok) {
+        this.setState({ activeNote: fromJS(action.json) });
+      }
+    });
+  };
+
   render() {
-    const { notebook, loading, postNote, patchNote, notebookUpdating } = this.props;
+    const { notebook, loading, patchNote, notebookUpdating } = this.props;
     const { activeNote, collapseSidebar } = this.state;
 
     if (loading) {
@@ -159,7 +168,7 @@ class Notebook extends Component {
           title={notebook.get('title')}
           items={notebook.get('notes')}
           collapse={collapseSidebar}
-          addItem={() => postNote(notebook.get('id'))}
+          addItem={this.postNote}
           addText="New Note"
           viewItem={activeNote => this.setState({ activeNote, collapseSidebar: !collapseSidebar })}
           deleteItem={() => this.setState({ deleteNotebookModalVisible: true })}
