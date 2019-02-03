@@ -1,4 +1,6 @@
 .header {
+  position: fixed;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -9,6 +11,7 @@
   margin: 0 20px;
   font-family: 'Orbitron', 'Teko', sans-serif;
   box-sizing: border-box;
+  z-index: 5;
 
   .header-brand {
     width: 300px;

@@ -32,20 +32,22 @@ class Sidebar extends Component {
     const { notebook, addNote, loading, collapseSidebar, collapse } = this.props;
 
     return (
-      <div className={classNames('sidebar', { collapse })}>
-        <div className="sidebar-header">
-          <h2>{notebook.get('title')}</h2>
-          <div className="sidebar-tab" onClick={() => collapseSidebar()}>
-            <Icon icon={collapse ? 'RightArrow' : 'LeftArrow'} />
+      <div className="sidebar-wrapper">
+        <div className={classNames('sidebar', { collapse })}>
+          <div className="sidebar-header">
+            <h2>{notebook.get('title')}</h2>
+            <div className="sidebar-tab" onClick={() => collapseSidebar()}>
+              <Icon icon={collapse ? 'RightArrow' : 'LeftArrow'} />
+            </div>
           </div>
-        </div>
-        <div className="sidebar-description">{notebook.get('description')}</div>
-        <div className="sidebar-add" onClick={() => addNote(notebook.get('id'))}>
-          <Icon icon="Plus" />
-          New Note
-        </div>
-        <div className="sidebar-notes">
-          {loading ? <Loading className="sidebar-loading" /> : notebook.get('notes').map(this.renderNote)}
+          <div className="sidebar-description">{notebook.get('description')}</div>
+          <div className="sidebar-add" onClick={() => addNote(notebook.get('id'))}>
+            <Icon icon="Plus" />
+            New Note
+          </div>
+          <div className="sidebar-notes">
+            {loading ? <Loading className="sidebar-loading" /> : notebook.get('notes').map(this.renderNote)}
+          </div>
         </div>
       </div>
     );
