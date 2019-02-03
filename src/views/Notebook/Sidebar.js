@@ -48,9 +48,9 @@ class Sidebar extends Component {
           <div className="sidebar-notes">
             {loading ? <Loading className="sidebar-loading" /> : notebook.get('notes').map(this.renderNote)}
           </div>
-        </div>
-        <div className="sidebar-edit-notebook">
-          Edit Notebook <Icon icon="Trash" />
+          <div className="sidebar-edit-notebook">
+            Edit Notebook <Icon icon="Trash" />
+          </div>
         </div>
       </div>
     );

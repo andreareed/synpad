@@ -1,4 +1,39 @@
 .notebook {
   display: flex;
   width: 100vw;
+  color: #333;
+  font-size: 18px;
+
+  .note-delete-modal {
+    text-align: center;
+
+    h1 {
+      background-color: var(--primary);
+      margin: 0 0 20px 0;
+      padding: 10px;
+    }
+
+    .note-delete-message {
+      width: 400px;
+      min-height: 200px;
+      max-width: 100vw;
+      padding: 20px;
+
+      span {
+        font-weight: bold;
+        margin: 10px;
+        display: block;
+      }
+    }
+
+    .note-delete-buttons {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+
+      button {
+        width: 40%;
+      }
+    }
+  }
 }

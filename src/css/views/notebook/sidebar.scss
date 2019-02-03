@@ -60,7 +60,7 @@
   }
 
   .sidebar-notes {
-    height: calc(100vh - 310px);
+    height: calc(100vh - 290px);
     overflow-y: scroll;
 
     @media (max-width: 768px) {
@@ -107,7 +107,7 @@
   font-size: 24px;
   padding: 10px 20px;
   width: 300px;
-
+  margin: -10px -20px;
   .trash-icon {
     height: 20px;
     float: right;
