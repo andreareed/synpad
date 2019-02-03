@@ -28,4 +28,8 @@ module.exports = {
     }
     return Note.query().patchAndFetchById(id, payload);
   },
+
+  async deleteNote(id) {
+    return Note.query().deleteById(id);
+  },
 };

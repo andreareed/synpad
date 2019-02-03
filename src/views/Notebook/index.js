@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Notebook from './Notebook';
 
-import { getNotebook, postNote, patchNote } from './actions';
+import { getNotebook, postNote, patchNote, deleteNote } from './actions';
 
 const mapStateToProps = state => {
   return {
@@ -16,6 +16,7 @@ const mapDispatchToProps = dispatch => {
     getNotebook: id => dispatch(getNotebook(id)),
     postNote: notebookId => dispatch(postNote(notebookId)),
     patchNote: (noteId, values) => dispatch(patchNote(noteId, values)),
+    deleteNote: (noteId, notebookId) => dispatch(deleteNote(noteId, notebookId)),
   };
 };
 

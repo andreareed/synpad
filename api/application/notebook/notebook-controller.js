@@ -21,4 +21,8 @@ module.exports = {
   async patchNoteHandler(request) {
     return service.patchNote(request.params.note, request.payload);
   },
+
+  async deleteNoteHandler(request) {
+    return service.deleteNote(request.params.note);
+  },
 };

@@ -14,6 +14,7 @@ class Notebook extends Component {
     postNote: PropTypes.func.isRequired,
     patchNote: PropTypes.func.isRequired,
     notebookUpdating: PropTypes.bool,
+    deletePost: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -37,13 +38,17 @@ class Notebook extends Component {
     const { notebook } = this.props;
     const { activeNote } = this.state;
 
-    if (prevProps !== this.props && prevProps.notebook.get('notes')) {
+    if (prevProps !== this.props && prevProps.notebook.get('notes') && activeNote) {
       const index = prevProps.notebook.get('notes').findIndex(note => note.get('id') === activeNote.get('id'));
       this.setState({ activeNote: notebook.getIn(['notes', index]) });
     }
   }
 
   onDeleteNote = () => {
+    const { deleteNote } = this.props;
+    const { activeNote } = this.state;
+
+    deleteNote(activeNote.get('id'), activeNote.get('notebook_id'));
     this.setState({ collapseSidebar: false, activeNote: null });
   };
 

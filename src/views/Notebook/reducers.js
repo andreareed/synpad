@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { fromJS, Map } from 'immutable';
 
-import { GET_NOTEBOOK, POST_NOTE, PATCH_NOTE } from './actions';
+import { GET_NOTEBOOK, POST_NOTE, PATCH_NOTE, DELETE_NOTE } from './actions';
 
 const loading = (state = true, action) => {
   switch (action.type) {
@@ -19,14 +19,14 @@ const loading = (state = true, action) => {
 
 const notebook = (state = Map({ loading: false, data: Map() }), action) => {
   switch (action.type) {
+    case `${GET_NOTEBOOK}_SUCCESS`:
+      return state.set('data', fromJS(action.json));
+
     case `${POST_NOTE}_REQUEST`:
       return state.set('loading', true);
 
     case `${POST_NOTE}_FAILURE`:
       return state.set('loading', false);
-
-    case `${GET_NOTEBOOK}_SUCCESS`:
-      return state.set('data', fromJS(action.json));
 
     case `${POST_NOTE}_SUCCESS`:
       state = state.set('loading', false);
@@ -40,11 +40,18 @@ const notebook = (state = Map({ loading: false, data: Map() }), action) => {
       ]);
       return state.setIn(['data', 'notes'], state.getIn(['data', 'notes']).splice(0, 0, fromJS(action.payload)));
 
-    case `${PATCH_NOTE}_SUCCESS`:
+    case `${PATCH_NOTE}_FAILURE`:
       return state.setIn(
         ['data', 'notes', state.getIn(['data', 'notes']).findIndex(note => note.get('id') === action.noteId)],
         fromJS(action.json)
       );
+
+    case `${DELETE_NOTE}_REQUEST`:
+      return state.removeIn([
+        'data',
+        'notes',
+        state.getIn(['data', 'notes']).findIndex(note => note.get('id') === action.noteId),
+      ]);
 
     default:
       return state;

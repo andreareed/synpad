@@ -93,14 +93,9 @@ module.exports = {
               },
               {
                 notebook: rowExists(Notebook, 'id', Notebook.notFoundMessage, { convert: false }),
-                note: rowExistsWhere(
-                  Note,
-                  'id',
-                  'notebook_id',
-                  'values.notebook_id',
-                  Notebook.notFoundMessage,
-                  { convert: false }
-                ),
+                note: rowExistsWhere(Note, 'id', 'notebook_id', 'values.notebook_id', Notebook.notFoundMessage, {
+                  convert: false,
+                }),
                 payload: {
                   id: Joi.string()
                     .uuid()
@@ -111,6 +106,35 @@ module.exports = {
                   title: Joi.string().allow(''),
                   description: Joi.string().allow(''),
                 },
+              }
+            ),
+          },
+        },
+      },
+      {
+        method: 'DELETE',
+        path: '/notebooks/{notebook}/notes/{note}',
+        handler: controller.deleteNoteHandler,
+        config: {
+          auth: {
+            strategies: ['jwt'],
+            scope: ['notebook-{params.notebook}'],
+          },
+          validate: {
+            params: asyncValidation(
+              {
+                notebook: Joi.string()
+                  .uuid()
+                  .required(),
+                note: Joi.string()
+                  .uuid()
+                  .required(),
+              },
+              {
+                notebook: rowExists(Notebook, 'id', Notebook.notFoundMessage, { convert: false }),
+                note: rowExistsWhere(Note, 'id', 'notebook_id', 'values.notebook_id', Notebook.notFoundMessage, {
+                  convert: false,
+                }),
               }
             ),
           },
