@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Map } from 'immutable';
+import { List } from 'immutable';
 import classNames from 'classnames';
 
 import Icon from '../../common/components/Icon/Icon';
@@ -9,49 +9,52 @@ import Loading from '../../common/components/Loading';
 class Sidebar extends Component {
   static propTypes = {
     notebook: PropTypes.instanceOf(Map),
-    addNote: PropTypes.func.isRequired,
-    viewNote: PropTypes.func.isRequired,
-    deleteNotebook: PropTypes.func.isRequired,
+    addItem: PropTypes.func.isRequired,
+    viewItem: PropTypes.func.isRequired,
+    deleteItem: PropTypes.func.isRequired,
     loading: PropTypes.bool,
+    addText: PropTypes.string,
   };
 
   static defaultProps = {
-    notebook: Map(),
-    addNote: () => {},
+    items: List(),
+    addItem: () => {},
+    viewItem: () => {},
   };
 
-  renderNote = note => {
-    const { viewNote } = this.props;
+  renderItem = item => {
+    const { viewItem } = this.props;
     return (
-      <div key={note.get('id')} onClick={() => viewNote(note)} className="sidebar-note">
-        {note.get('title')}
+      <div key={item.get('id')} onClick={() => viewItem(item)} className="sidebar-item">
+        {item.get('title')}
       </div>
     );
   };
 
   render() {
-    const { notebook, addNote, loading, collapseSidebar, collapse, deleteNotebook } = this.props;
+    const { title, addItem, loading, collapseSidebar, collapse, deleteItem, addText, items } = this.props;
 
     return (
       <div className="sidebar-wrapper">
         <div className={classNames('sidebar', { collapse })}>
           <div className="sidebar-header">
-            <h2>{notebook.get('title')}</h2>
+            <h2>{title}</h2>
             <div className="sidebar-tab" onClick={() => collapseSidebar()}>
               <Icon icon={collapse ? 'RightArrow' : 'LeftArrow'} />
             </div>
           </div>
-          <div className="sidebar-description">{notebook.get('description')}</div>
-          <div className="sidebar-add" onClick={() => addNote(notebook.get('id'))}>
+          <div className="sidebar-add" onClick={addItem}>
             <Icon icon="Plus" />
-            New Note
+            {addText}
           </div>
-          <div className="sidebar-notes">
-            {loading ? <Loading className="sidebar-loading" /> : notebook.get('notes').map(this.renderNote)}
+          <div className="sidebar-items">
+            {loading ? <Loading className="sidebar-loading" /> : items.map(this.renderItem)}
           </div>
-          <div className="sidebar-edit-notebook">
-            Edit Notebook <Icon icon="Trash" onClick={deleteNotebook} />
-          </div>
+          {!!deleteItem && (
+            <div className="sidebar-edit">
+              Edit Notebook <Icon icon="Trash" onClick={deleteItem} />
+            </div>
+          )}
         </div>
       </div>
     );

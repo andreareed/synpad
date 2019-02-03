@@ -47,19 +47,12 @@
     margin-right: 45px;
   }
 
-  .sidebar-description {
-    font-weight: 300;
-    font-size: 18px;
-    color: var(--gray);
-    height: 55px;
-  }
-
-  .sidebar-note {
+  .sidebar-item {
     margin: 15px;
     cursor: pointer;
   }
 
-  .sidebar-notes {
+  .sidebar-items {
     height: calc(100vh - 290px);
     overflow-y: scroll;
 
@@ -91,6 +84,8 @@
   .sidebar-header {
     position: relative;
     display: flex;
+    height: 106px;
+
     > div {
       justify-content: flex-start;
     }
@@ -102,7 +97,7 @@
   }
 }
 
-.sidebar-edit-notebook {
+.sidebar-edit {
   background-color: var(--primary);
   font-size: 24px;
   padding: 10px 20px;

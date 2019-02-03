@@ -154,13 +154,15 @@ class Notebook extends Component {
     return (
       <div className="notebook">
         <Sidebar
-          notebook={notebook}
-          addNote={postNote}
+          title={notebook.get('title')}
+          items={notebook.get('notes')}
           collapse={collapseSidebar}
-          viewNote={activeNote => this.setState({ activeNote, collapseSidebar: !collapseSidebar })}
+          addItem={() => postNote(notebook.get('id'))}
+          addText="New Note"
+          viewItem={activeNote => this.setState({ activeNote, collapseSidebar: !collapseSidebar })}
+          deleteItem={() => this.setState({ deleteNotebookModalVisible: true })}
           collapseSidebar={() => this.setState({ collapseSidebar: !collapseSidebar })}
           loading={notebookUpdating}
-          deleteNotebook={() => this.setState({ deleteNotebookModalVisible: true })}
         />
         <Note
           note={activeNote}
