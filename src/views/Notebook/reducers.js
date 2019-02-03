@@ -17,17 +17,24 @@ const loading = (state = true, action) => {
   }
 };
 
-const notebook = (state = Map(), action) => {
+const notebook = (state = Map({ loading: false, data: Map() }), action) => {
   switch (action.type) {
+    case `${POST_NOTE}_REQUEST`:
+      return state.set('loading', true);
+
+    case `${POST_NOTE}_FAILURE`:
+      return state.set('loading', false);
+
     case `${GET_NOTEBOOK}_SUCCESS`:
-      return fromJS(action.json);
+      return state.set('data', fromJS(action.json));
 
     case `${POST_NOTE}_SUCCESS`:
-      return state.set('notes', state.get('notes').push(fromJS(action.json)));
+      state = state.set('loading', false);
+      return state.setIn(['data', 'notes'], state.getIn(['data', 'notes']).push(fromJS(action.json)));
 
     case `${PATCH_NOTE}_SUCCESS`:
       return state.setIn(
-        ['notes', state.get('notes').findIndex(note => note.get('id') === action.noteId)],
+        ['data', 'notes', state.get('notes').findIndex(note => note.get('id') === action.noteId)],
         fromJS(action.json)
       );
 

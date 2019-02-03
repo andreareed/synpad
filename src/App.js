@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import { Map } from 'immutable';
 import localstorage from 'store2';
 
@@ -29,11 +29,7 @@ class App extends Component {
     if (!user) {
       const token = localstorage.get('token');
       if (token) {
-        verifyToken(token).then(action => {
-          if (!action.response.ok) {
-            localstorage.clearAll();
-          }
-        });
+        verifyToken(token);
       }
     }
   }
@@ -58,7 +54,6 @@ class App extends Component {
         <div className="app">
           <Switch>
             <Route exact path="/" component={Landing} />
-            <Redirect to="/" />
           </Switch>
         </div>
       );
@@ -70,8 +65,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={Notebooks} />
           <Route exact path="/account" component={Account} />
-          <Route exact path="/:notebookId" component={Notebook} />
-          <Redirect to="/" />
+          <Route path="/:notebookId" component={Notebook} />
         </Switch>
       </div>
     );

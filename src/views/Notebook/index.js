@@ -6,7 +6,8 @@ import { getNotebook, postNote, patchNote } from './actions';
 const mapStateToProps = state => {
   return {
     loading: state.notebook.loading,
-    notebook: state.notebook.notebook,
+    notebook: state.notebook.notebook.get('data'),
+    notebookUpdating: state.notebook.notebook.get('loading'),
   };
 };
 

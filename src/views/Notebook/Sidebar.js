@@ -4,12 +4,14 @@ import { Map } from 'immutable';
 import classNames from 'classnames';
 
 import Icon from '../../common/components/Icon/Icon';
+import Loading from '../../common/components/Loading';
 
 class Sidebar extends Component {
   static propTypes = {
     notebook: PropTypes.instanceOf(Map),
     addNote: PropTypes.func.isRequired,
     viewNote: PropTypes.func.isRequired,
+    loading: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -29,10 +31,6 @@ class Sidebar extends Component {
   render() {
     const { notebook, addNote, loading, collapseSidebar, collapse } = this.props;
 
-    if (loading) {
-      return null;
-    }
-
     return (
       <div className={classNames('sidebar', { collapse })}>
         <div className="sidebar-header">
@@ -46,7 +44,9 @@ class Sidebar extends Component {
           <Icon icon="Plus" />
           New Note
         </div>
-        <div className="sidebar-notes">{notebook.get('notes').map(this.renderNote)}</div>
+        <div className="sidebar-notes">
+          {loading ? <Loading className="sidebar-loading" /> : notebook.get('notes').map(this.renderNote)}
+        </div>
       </div>
     );
   }

@@ -13,6 +13,7 @@ class Notebook extends Component {
     loading: PropTypes.bool,
     postNote: PropTypes.func.isRequired,
     patchNote: PropTypes.func.isRequired,
+    notebookUpdating: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -37,7 +38,7 @@ class Notebook extends Component {
   };
 
   render() {
-    const { notebook, loading, postNote, patchNote } = this.props;
+    const { notebook, loading, postNote, patchNote, notebookUpdating } = this.props;
     const { activeNote, collapseSidebar } = this.state;
 
     if (loading) {
@@ -56,6 +57,7 @@ class Notebook extends Component {
           collapse={collapseSidebar}
           viewNote={activeNote => this.setState({ activeNote, collapseSidebar: !collapseSidebar })}
           collapseSidebar={() => this.setState({ collapseSidebar: !collapseSidebar })}
+          loading={notebookUpdating}
         />
         <Note note={activeNote} onSave={patchNote} onSuccess={this.onSuccess} expand={collapseSidebar} />
       </div>
