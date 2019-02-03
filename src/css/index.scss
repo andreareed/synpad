@@ -32,6 +32,14 @@ body {
   background-color: var(--black);
 }
 
+pre,
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  background-color: #ddd;
+  font-size: 14px;
+  padding: 10px;
+}
+
+pre > code {
+  padding: 0;
 }
