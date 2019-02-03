@@ -4,6 +4,7 @@ export const GET_NOTEBOOK = 'GET_NOTEBOOK';
 export const POST_NOTE = 'POST_NOTE';
 export const PATCH_NOTE = 'PATCH_NOTE';
 export const DELETE_NOTE = 'DELETE_NOTE';
+export const DELETE_NOTEBOOK = 'DELETE_NOTEBOOK';
 
 export const getNotebook = id => ({
   type: GET_NOTEBOOK,
@@ -27,4 +28,10 @@ export const deleteNote = (noteId, notebookId) => ({
   type: DELETE_NOTE,
   promise: client.delete(`/notebooks/${notebookId}/notes/${noteId}`),
   noteId,
+});
+
+export const deleteNotebook = notebookId => ({
+  type: DELETE_NOTEBOOK,
+  promise: client.delete(`/notebooks/${notebookId}`),
+  notebookId,
 });

@@ -140,6 +140,29 @@ module.exports = {
           },
         },
       },
+      {
+        method: 'DELETE',
+        path: '/notebooks/{notebook}',
+        handler: controller.deleteNotebookHandler,
+        config: {
+          auth: {
+            strategies: ['jwt'],
+            scope: ['notebook-{params.notebook}'],
+          },
+          validate: {
+            params: asyncValidation(
+              {
+                notebook: Joi.string()
+                  .uuid()
+                  .required(),
+              },
+              {
+                notebook: rowExists(Notebook, 'id', Notebook.notFoundMessage, { convert: false }),
+              }
+            ),
+          },
+        },
+      },
     ]);
   },
 };

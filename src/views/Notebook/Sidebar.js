@@ -11,6 +11,7 @@ class Sidebar extends Component {
     notebook: PropTypes.instanceOf(Map),
     addNote: PropTypes.func.isRequired,
     viewNote: PropTypes.func.isRequired,
+    deleteNotebook: PropTypes.func.isRequired,
     loading: PropTypes.bool,
   };
 
@@ -29,7 +30,7 @@ class Sidebar extends Component {
   };
 
   render() {
-    const { notebook, addNote, loading, collapseSidebar, collapse } = this.props;
+    const { notebook, addNote, loading, collapseSidebar, collapse, deleteNotebook } = this.props;
 
     return (
       <div className="sidebar-wrapper">
@@ -49,7 +50,7 @@ class Sidebar extends Component {
             {loading ? <Loading className="sidebar-loading" /> : notebook.get('notes').map(this.renderNote)}
           </div>
           <div className="sidebar-edit-notebook">
-            Edit Notebook <Icon icon="Trash" />
+            Edit Notebook <Icon icon="Trash" onClick={deleteNotebook} />
           </div>
         </div>
       </div>

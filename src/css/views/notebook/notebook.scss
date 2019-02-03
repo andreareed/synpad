@@ -4,7 +4,7 @@
   color: #333;
   font-size: 18px;
 
-  .note-delete-modal {
+  .notebook-delete-modal {
     text-align: center;
 
     h1 {
@@ -13,7 +13,7 @@
       padding: 10px;
     }
 
-    .note-delete-message {
+    .notebook-delete-message {
       width: 400px;
       min-height: 200px;
       max-width: 100vw;
@@ -26,7 +26,7 @@
       }
     }
 
-    .note-delete-buttons {
+    .notebook-delete-buttons {
       display: flex;
       justify-content: space-around;
       margin-top: 20px;

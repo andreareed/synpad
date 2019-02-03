@@ -29,7 +29,8 @@ class Notebook extends Component {
   state = {
     activeNote: null,
     collapseSidebar: false,
-    deleteModalVisible: false,
+    deleteNoteModalVisible: false,
+    deleteNotebookModalVisible: false,
     deleteConfirmation: '',
   };
 
@@ -48,45 +49,79 @@ class Notebook extends Component {
     }
   }
 
-  toggleModal = () => this.setState({ deleteModalVisible: !this.state.deleteModalVisible });
+  toggleNoteModal = () => this.setState({ deleteNoteModalVisible: !this.state.deleteNoteModalVisible });
+  toggleNotebookModal = () => this.setState({ deleteNotebookModalVisible: !this.state.deleteNotebookModalVisible });
 
-  renderDeleteModal = () => {
-    const { deleteModalVisible, deleteConfirmation, activeNote } = this.state;
+  renderModal = () => {
+    const { deleteNoteModalVisible, deleteNotebookModalVisible, deleteConfirmation, activeNote } = this.state;
+    const { notebook } = this.props;
 
-    if (!activeNote) {
-      return null;
+    if (deleteNotebookModalVisible) {
+      return (
+        <Modal isVisible={true} onClose={this.toggleNotebookModal} className="notebook-delete-modal">
+          <h1>Delete this notebook?</h1>
+          <div className="notebook-delete-message">
+            This action cannot be undone. If you're sure, type <span>{notebook.get('title')}</span> to confirm and this
+            note will be deleted.
+            <form>
+              <InputWrapper>
+                <input
+                  value={deleteConfirmation}
+                  onChange={({ target }) => this.setState({ deleteConfirmation: target.value })}
+                />
+              </InputWrapper>
+              <div className="notebook-delete-buttons">
+                <button type="button" className="btn" onClick={this.toggleNotebookModal}>
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="btn btn-danger"
+                  onClick={this.onDeleteNotebook}
+                  disabled={deleteConfirmation !== notebook.get('title')}
+                >
+                  Delete
+                </button>
+              </div>
+            </form>
+          </div>
+        </Modal>
+      );
     }
 
-    return (
-      <Modal isVisible={deleteModalVisible} onClose={this.toggleModal} className="note-delete-modal">
-        <h1>Delete this note?</h1>
-        <div className="note-delete-message">
-          This action cannot be undone. If you're sure, type <span>{activeNote.get('title')}</span> to confirm and this
-          note will be deleted.
-          <form>
-            <InputWrapper>
-              <input
-                value={deleteConfirmation}
-                onChange={({ target }) => this.setState({ deleteConfirmation: target.value })}
-              />
-            </InputWrapper>
-            <div className="note-delete-buttons">
-              <button type="button" className="btn" onClick={this.toggleModal}>
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className="btn btn-danger"
-                onClick={this.onDeleteNote}
-                disabled={deleteConfirmation !== activeNote.get('title')}
-              >
-                Delete
-              </button>
-            </div>
-          </form>
-        </div>
-      </Modal>
-    );
+    if (deleteNoteModalVisible) {
+      return (
+        <Modal isVisible={true} onClose={this.toggleNoteModal} className="notebook-delete-modal">
+          <h1>Delete this note?</h1>
+          <div className="notebook-delete-message">
+            This action cannot be undone. If you're sure, type <span>{activeNote.get('title')}</span> to confirm and
+            this note will be deleted.
+            <form>
+              <InputWrapper>
+                <input
+                  value={deleteConfirmation}
+                  onChange={({ target }) => this.setState({ deleteConfirmation: target.value })}
+                />
+              </InputWrapper>
+              <div className="notebook-delete-buttons">
+                <button type="button" className="btn" onClick={this.toggleNoteModal}>
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="btn btn-danger"
+                  onClick={this.onDeleteNote}
+                  disabled={deleteConfirmation !== activeNote.get('title')}
+                >
+                  Delete
+                </button>
+              </div>
+            </form>
+          </div>
+        </Modal>
+      );
+    }
+    return null;
   };
 
   onDeleteNote = () => {
@@ -94,7 +129,14 @@ class Notebook extends Component {
     const { activeNote } = this.state;
 
     deleteNote(activeNote.get('id'), activeNote.get('notebook_id'));
-    this.setState({ collapseSidebar: false, activeNote: null, deleteConfirmation: '', deleteModalVisible: false });
+    this.setState({ collapseSidebar: false, activeNote: null, deleteConfirmation: '', deleteNoteModalVisible: false });
+  };
+
+  onDeleteNotebook = () => {
+    const { deleteNotebook, notebook, history } = this.props;
+
+    this.setState({ deleteConfirmation: '', deleteNotebookModalVisible: false });
+    deleteNotebook(notebook.get('id')).then(() => history.push('/'));
   };
 
   render() {
@@ -118,14 +160,15 @@ class Notebook extends Component {
           viewNote={activeNote => this.setState({ activeNote, collapseSidebar: !collapseSidebar })}
           collapseSidebar={() => this.setState({ collapseSidebar: !collapseSidebar })}
           loading={notebookUpdating}
+          deleteNotebook={() => this.setState({ deleteNotebookModalVisible: true })}
         />
         <Note
           note={activeNote}
           onSave={patchNote}
           expand={collapseSidebar}
-          deleteNote={() => this.setState({ deleteModalVisible: true })}
+          deleteNote={() => this.setState({ deleteNoteModalVisible: true })}
         />
-        {this.renderDeleteModal()}
+        {this.renderModal()}
       </div>
     );
   }

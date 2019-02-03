@@ -25,4 +25,8 @@ module.exports = {
   async deleteNoteHandler(request) {
     return service.deleteNote(request.params.note);
   },
+
+  async deleteNotebookHandler(request) {
+    return service.deleteNotebook(request.params.notebook);
+  },
 };

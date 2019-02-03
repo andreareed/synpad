@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import { fromJS, List } from 'immutable';
 
 import { GET_NOTEBOOKS, POST_NOTEBOOK } from './actions';
+import { DELETE_NOTEBOOK } from '../Notebook/actions';
 
 const loading = (state = false, action) => {
   switch (action.type) {
@@ -24,6 +25,9 @@ const notebooks = (state = List(), action) => {
 
     case `${POST_NOTEBOOK}_SUCCESS`:
       return state.push(fromJS(action.json));
+
+    case `${DELETE_NOTEBOOK}_SUCCESS`:
+      return state.splice(state.findIndex(notebook => notebook.get('id') === action.notebookId), 1);
 
     default:
       return state;

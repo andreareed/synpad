@@ -32,4 +32,8 @@ module.exports = {
   async deleteNote(id) {
     return Note.query().deleteById(id);
   },
+
+  async deleteNotebook(id) {
+    return Notebook.query().deleteById(id);
+  },
 };
