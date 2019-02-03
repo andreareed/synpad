@@ -14,6 +14,7 @@ class Sidebar extends Component {
     deleteItem: PropTypes.func.isRequired,
     loading: PropTypes.bool,
     addText: PropTypes.string,
+    backButton: PropTypes.node,
   };
 
   static defaultProps = {
@@ -32,16 +33,19 @@ class Sidebar extends Component {
   };
 
   render() {
-    const { title, addItem, loading, collapseSidebar, collapse, deleteItem, addText, items } = this.props;
+    const { title, addItem, loading, collapseSidebar, collapse, deleteItem, addText, items, backButton } = this.props;
 
     return (
       <div className="sidebar-wrapper">
         <div className={classNames('sidebar', { collapse })}>
           <div className="sidebar-header">
-            <h2>{title}</h2>
+            <div className="sidebar-back">{backButton}</div>
             <div className="sidebar-tab" onClick={() => collapseSidebar()}>
               <Icon icon={collapse ? 'RightArrow' : 'LeftArrow'} />
             </div>
+          </div>
+          <div className="sidebar-header-title">
+            <h2>{title}</h2>
           </div>
           <div className="sidebar-add" onClick={addItem}>
             <Icon icon="Plus" />

@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
+import { Link } from 'react-router-dom';
 
 import Sidebar from './Sidebar';
 import Note from './Note';
 import Loading from '../../common/components/Loading';
 import Modal from '../../common/components/Modal';
+import Icon from '../../common/components/Icon/Icon';
 import InputWrapper from '../../common/components/forms/InputWrapper';
 
 class Notebook extends Component {
@@ -163,6 +165,11 @@ class Notebook extends Component {
           deleteItem={() => this.setState({ deleteNotebookModalVisible: true })}
           collapseSidebar={() => this.setState({ collapseSidebar: !collapseSidebar })}
           loading={notebookUpdating}
+          backButton={
+            <Link to="/">
+              <Icon icon="BackArrow" /> Back to Notebooks
+            </Link>
+          }
         />
         <Note
           note={activeNote}

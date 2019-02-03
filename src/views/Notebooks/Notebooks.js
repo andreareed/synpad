@@ -4,6 +4,7 @@ import { List } from 'immutable';
 import { Link } from 'react-router-dom';
 
 import NotebookForm from './NotebookForm';
+import Sidebar from '../Notebook/Sidebar';
 
 import Loading from '../../common/components/Loading';
 import Icon from '../../common/components/Icon/Icon';
@@ -24,7 +25,8 @@ class Notebooks extends Component {
   };
 
   state = {
-    notebookModalVisible: false,
+    collapseSidebar: false,
+    addingNotebook: false,
   };
 
   componentDidMount() {
@@ -34,61 +36,43 @@ class Notebooks extends Component {
     }
   }
 
-  toggleModal = () => this.setState({ notebookModalVisible: !this.state.notebookModalVisible });
-
-  renderNotebookModal = () => {
-    const { postNotebook } = this.props;
-    const { notebookModalVisible } = this.state;
-
-    return (
-      <Modal isVisible={notebookModalVisible} onClose={this.toggleModal}>
-        <NotebookForm onSubmit={postNotebook} onClose={this.toggleModal} />
-      </Modal>
-    );
-  };
-
-  renderNotebook = notebook => (
-    <Link to={`/${notebook.get('id')}`} key={notebook.get('id')} className="notebooks-card">
-      <h3>{notebook.get('title') || 'Untitled'}</h3>
-      {notebook.get('description')}
-    </Link>
+  renderPlaceholder = () => (
+    <div className="notebooks">
+      <div className="container">
+        <Icon icon="Plus" onClick={this.toggleModal} />
+        <NoContentPlaceholder
+          title="No notebooks found"
+          message={
+            <div className="notebooks-placeholder-message">
+              Click the <Icon icon="Plus" onClick={this.toggleModal} /> to add one!
+            </div>
+          }
+        />
+      </div>
+    </div>
   );
 
   render() {
-    const { loading, notebooks } = this.props;
+    const { loading, notebooks, history } = this.props;
+    const { collapseSidebar } = this.state;
+
     if (loading) {
       return <Loading />;
     }
 
-    if (!notebooks.size) {
-      return (
-        <div className="notebooks">
-          <div className="container">
-            <Icon icon="Plus" onClick={this.toggleModal} />
-            <NoContentPlaceholder
-              title="No notebooks found"
-              message={
-                <div className="notebooks-placeholder-message">
-                  Click the <Icon icon="Plus" onClick={this.toggleModal} /> to add one!
-                </div>
-              }
-            />
-          </div>
-          {this.renderNotebookModal()}
-        </div>
-      );
-    }
-
     return (
       <div className="notebooks">
-        <div className="container">
-          <div className="notebooks-add" onClick={this.toggleModal}>
-            <Icon icon="Plus" />
-            <h1>Add Notebook</h1>
-          </div>
-          <div className="notebooks-card-wrapper">{notebooks.map(notebook => this.renderNotebook(notebook))}</div>
-          {this.renderNotebookModal()}
-        </div>
+        <Sidebar
+          title="Notebooks"
+          items={notebooks}
+          collapse={collapseSidebar}
+          addItem={() => this.setState({ addingNotebook: true })}
+          addText="New Notebook"
+          viewItem={notebook => history.push(`/${notebook.get('id')}`)}
+          deleteItem={() => this.setState({ deleteNotebookModalVisible: true })}
+          collapseSidebar={() => this.setState({ collapseSidebar: !collapseSidebar })}
+        />
+        {!notebooks.size && this.renderPlaceholder()}
       </div>
     );
   }
