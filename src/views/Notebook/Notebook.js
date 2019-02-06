@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 import Sidebar from './Sidebar';
 import Note from './Note';
-import Loading from '../../common/components/Loading';
 import Modal from '../../common/components/Modal';
 import Icon from '../../common/components/Icon/Icon';
 import InputWrapper from '../../common/components/forms/InputWrapper';
@@ -154,14 +153,6 @@ class Notebook extends Component {
     const { notebook, loading, patchNote, notebookUpdating } = this.props;
     const { activeNote, collapseSidebar } = this.state;
 
-    if (loading) {
-      return <Loading />;
-    }
-
-    if (!notebook.size) {
-      return 'Notebook not found';
-    }
-
     return (
       <div className="notebook">
         <Sidebar
@@ -185,6 +176,7 @@ class Notebook extends Component {
           onSave={patchNote}
           expand={collapseSidebar}
           deleteNote={() => this.setState({ deleteNoteModalVisible: true })}
+          loading={loading}
         />
         {this.renderModal()}
       </div>

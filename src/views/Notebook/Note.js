@@ -8,6 +8,7 @@ import classNames from 'classnames';
 import ViewNote from './ViewNote';
 import ToggleSwitch from '../../common/components/forms/ToggleSwitch';
 import Icon from '../../common/components/Icon/Icon';
+import Loading from '../../common/components/Loading';
 
 const validationSchema = Yup.object().shape({
   title: Yup.string()
@@ -20,6 +21,7 @@ class Note extends Component {
   static propTypes = {
     note: PropTypes.instanceOf(Map),
     onSave: PropTypes.func.isRequired,
+    loading: PropTypes.bool,
   };
 
   state = {
@@ -69,8 +71,13 @@ class Note extends Component {
   };
 
   render() {
-    const { note, onSave, expand } = this.props;
+    const { note, onSave, expand, loading } = this.props;
     const { error } = this.state;
+
+    if (loading) {
+      return <Loading />;
+    }
+
     if (!note) {
       return null;
     }
