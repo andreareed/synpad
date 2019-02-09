@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { fromJS, Map } from 'immutable';
+import { fromJS, Map, List } from 'immutable';
 
 import { GET_NOTEBOOK, POST_NOTE, PATCH_NOTE, DELETE_NOTE, DELETE_NOTEBOOK, PATCH_NOTEBOOK } from './actions';
 
@@ -17,7 +17,7 @@ const loading = (state = true, action) => {
   }
 };
 
-const notebook = (state = Map({ loading: false, data: Map() }), action) => {
+const notebook = (state = Map({ loading: false, data: Map({ notes: List() }) }), action) => {
   switch (action.type) {
     case `${GET_NOTEBOOK}_SUCCESS`:
       return state.set('data', fromJS(action.json));

@@ -65,10 +65,6 @@ class Notebooks extends Component {
     const { loading, notebooks, history } = this.props;
     const { collapseSidebar, addingNotebook } = this.state;
 
-    if (loading) {
-      return <Loading />;
-    }
-
     return (
       <div className="notebooks">
         <Sidebar
@@ -83,8 +79,9 @@ class Notebooks extends Component {
           hideDelete
         />
         <div className={classNames('notebookDisplay', { expand: collapseSidebar })}>
-          {!addingNotebook && !notebooks.size && this.renderPlaceholder()}
-          {addingNotebook && <NotebookForm className="notebook-add-form" onSubmit={this.postNotebook} />}
+          {loading && <Loading />}
+          {!loading && !addingNotebook && !notebooks.size && this.renderPlaceholder()}
+          {!loading && addingNotebook && <NotebookForm className="notebook-add-form" onSubmit={this.postNotebook} />}
         </div>
       </div>
     );

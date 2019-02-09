@@ -41,7 +41,9 @@ class Notebook extends Component {
   componentDidMount() {
     const { getNotebook, match } = this.props;
     getNotebook(match.params.notebookId).then(action => {
-      this.setState({ editNotebookName: action.json.title });
+      if (action.response.ok) {
+        this.setState({ editNotebookName: action.json.title });
+      }
     });
   }
 

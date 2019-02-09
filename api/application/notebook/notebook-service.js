@@ -38,6 +38,8 @@ module.exports = {
   },
 
   async patchNotebook(id, data) {
-    return Notebook.query().patchAndFetchById(id, data);
+    return Notebook.query()
+      .patchAndFetchById(id, data)
+      .eager('notes');
   },
 };
