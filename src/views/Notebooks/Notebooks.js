@@ -38,7 +38,6 @@ class Notebooks extends Component {
   renderPlaceholder = () => (
     <div className="notebooks">
       <div className="container">
-        <Icon icon="Plus" onClick={this.toggleModal} />
         <NoContentPlaceholder
           title="No notebooks found"
           message={
