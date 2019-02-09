@@ -29,4 +29,8 @@ module.exports = {
   async deleteNotebookHandler(request) {
     return service.deleteNotebook(request.params.notebook);
   },
+
+  async patchNotebookHandler(request) {
+    return service.patchNotebook(request.params.notebook, request.payload);
+  },
 };

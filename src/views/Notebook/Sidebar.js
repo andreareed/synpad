@@ -15,6 +15,8 @@ class Sidebar extends Component {
     loading: PropTypes.bool,
     addText: PropTypes.string,
     backButton: PropTypes.node,
+    hideDelete: PropTypes.bool,
+    toggleEditModal: PropTypes.func,
   };
 
   static defaultProps = {
@@ -33,7 +35,19 @@ class Sidebar extends Component {
   };
 
   render() {
-    const { title, addItem, loading, collapseSidebar, collapse, deleteItem, addText, items, backButton } = this.props;
+    const {
+      title,
+      addItem,
+      loading,
+      collapseSidebar,
+      collapse,
+      deleteItem,
+      addText,
+      items,
+      backButton,
+      hideDelete,
+      toggleEditModal,
+    } = this.props;
 
     return (
       <div className="sidebar-wrapper">
@@ -54,9 +68,11 @@ class Sidebar extends Component {
           <div className="sidebar-items">
             {loading ? <Loading className="sidebar-loading" /> : items.map(this.renderItem)}
           </div>
-          {!!deleteItem && (
+          {hideDelete ? (
+            <div className="sidebar-edit-placeholder" />
+          ) : (
             <div className="sidebar-edit">
-              Edit Notebook <Icon icon="Trash" onClick={deleteItem} />
+              <span onClick={toggleEditModal}>Edit Notebook</span> <Icon icon="Trash" onClick={deleteItem} />
             </div>
           )}
         </div>

@@ -18,6 +18,7 @@ class Notebook extends Component {
     patchNote: PropTypes.func.isRequired,
     notebookUpdating: PropTypes.bool,
     deleteNote: PropTypes.func.isRequired,
+    patchNotebook: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -33,11 +34,15 @@ class Notebook extends Component {
     deleteNoteModalVisible: false,
     deleteNotebookModalVisible: false,
     deleteConfirmation: '',
+    editNotebookModalVisible: false,
+    editNotebookName: '',
   };
 
   componentDidMount() {
     const { getNotebook, match } = this.props;
-    getNotebook(match.params.notebookId);
+    getNotebook(match.params.notebookId).then(action => {
+      this.setState({ editNotebookName: action.json.title });
+    });
   }
 
   componentDidUpdate(prevProps) {
@@ -50,12 +55,46 @@ class Notebook extends Component {
     }
   }
 
+  toggleEditNotebookModal = () => this.setState({ editNotebookModalVisible: !this.state.editNotebookModalVisible });
   toggleNoteModal = () => this.setState({ deleteNoteModalVisible: !this.state.deleteNoteModalVisible });
   toggleNotebookModal = () => this.setState({ deleteNotebookModalVisible: !this.state.deleteNotebookModalVisible });
 
   renderModal = () => {
-    const { deleteNoteModalVisible, deleteNotebookModalVisible, deleteConfirmation, activeNote } = this.state;
+    const {
+      editNotebookModalVisible,
+      deleteNoteModalVisible,
+      deleteNotebookModalVisible,
+      deleteConfirmation,
+      activeNote,
+      editNotebookName,
+    } = this.state;
     const { notebook } = this.props;
+
+    if (editNotebookModalVisible) {
+      return (
+        <Modal isVisible={true} onClose={this.toggleEditNotebookModal} className="edit-notebook-modal">
+          <h1>Update this Notebook</h1>
+          <div className="notebook-delete-message">
+            <form>
+              <InputWrapper label="Notebook Name">
+                <input
+                  value={editNotebookName}
+                  onChange={({ target }) => this.setState({ editNotebookName: target.value })}
+                />
+              </InputWrapper>
+              <div className="notebook-edit-buttons">
+                <button type="button" className="btn" onClick={this.toggleEditNotebookModal}>
+                  Cancel
+                </button>
+                <button type="submit" className="btn btn-primary" onClick={this.onEditNotebook}>
+                  Update
+                </button>
+              </div>
+            </form>
+          </div>
+        </Modal>
+      );
+    }
 
     if (deleteNotebookModalVisible) {
       return (
@@ -125,6 +164,16 @@ class Notebook extends Component {
     return null;
   };
 
+  onEditNotebook = e => {
+    const { patchNotebook, notebook } = this.props;
+    const { editNotebookName } = this.state;
+    e.preventDefault();
+    patchNotebook(notebook.get('id'), { title: editNotebookName }).then(() =>
+      this.setState({ editNotebookModalVisible: false })
+    );
+    this.setState({ editNotebookModalVisible: false });
+  };
+
   onDeleteNote = () => {
     const { deleteNote } = this.props;
     const { activeNote } = this.state;
@@ -170,6 +219,7 @@ class Notebook extends Component {
               <Icon icon="BackArrow" /> Back to Notebooks
             </Link>
           }
+          toggleEditModal={this.toggleEditNotebookModal}
         />
         <Note
           note={activeNote}

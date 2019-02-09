@@ -9,7 +9,7 @@ class ViewNote extends Component {
 
   render() {
     const { note } = this.props;
-    const md = Markdown();
+    const md = new Markdown();
 
     if (!note) {
       return null;

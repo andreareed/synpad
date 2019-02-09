@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { fromJS, Map } from 'immutable';
 
-import { GET_NOTEBOOK, POST_NOTE, PATCH_NOTE, DELETE_NOTE, DELETE_NOTEBOOK } from './actions';
+import { GET_NOTEBOOK, POST_NOTE, PATCH_NOTE, DELETE_NOTE, DELETE_NOTEBOOK, PATCH_NOTEBOOK } from './actions';
 
 const loading = (state = true, action) => {
   switch (action.type) {
@@ -29,7 +29,12 @@ const notebook = (state = Map({ loading: false, data: Map() }), action) => {
     case `${POST_NOTE}_FAILURE`:
     case `${DELETE_NOTEBOOK}_SUCCESS`:
     case `${DELETE_NOTEBOOK}_FAILURE`:
+    case `${PATCH_NOTEBOOK}_FAILURE`:
       return state.set('loading', false);
+
+    case `${PATCH_NOTEBOOK}_SUCCESS`:
+      state = state.set('loading', false);
+      return state.set('data', fromJS(action.json));
 
     case `${POST_NOTE}_SUCCESS`:
       state = state.set('loading', false);

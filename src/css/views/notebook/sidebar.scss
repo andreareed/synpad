@@ -134,6 +134,14 @@
     top: 0.2em;
     position: relative;
   }
+
+  span {
+    cursor: pointer;
+  }
+}
+
+.sidebar-edit-placeholder {
+  height: 32px;
 }
 
 .collapse {

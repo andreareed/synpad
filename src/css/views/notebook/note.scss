@@ -1,5 +1,4 @@
 .note {
-  z-index: 5;
   background-color: #fff;
   color: #333;
   margin: 80px 20px 20px 360px;
@@ -44,4 +43,8 @@
 
 .expand {
   margin-left: 45px;
+
+  @media (max-width: 768px) {
+    margin-top: 120px;
+  }
 }

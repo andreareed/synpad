@@ -164,6 +164,34 @@ module.exports = {
           },
         },
       },
+      {
+        method: 'PATCH',
+        path: '/notebooks/{notebook}',
+        handler: controller.patchNotebookHandler,
+        config: {
+          auth: {
+            strategies: ['jwt'],
+            scope: ['notebook-{params.notebook}'],
+          },
+          validate: {
+            params: asyncValidation(
+              {
+                notebook: Joi.string()
+                  .uuid()
+                  .required(),
+              },
+              {
+                notebook: rowExists(Notebook, 'id', Notebook.notFoundMessage, { convert: false }),
+                payload: {
+                  title: Joi.string()
+                    .max(65)
+                    .allow(''),
+                },
+              }
+            ),
+          },
+        },
+      },
     ]);
   },
 };

@@ -80,6 +80,7 @@ class Notebooks extends Component {
           viewItem={notebook => history.push(`/${notebook.get('id')}`)}
           deleteItem={() => this.setState({ deleteNotebookModalVisible: true })}
           collapseSidebar={() => this.setState({ collapseSidebar: !collapseSidebar })}
+          hideDelete
         />
         <div className={classNames('notebookDisplay', { expand: collapseSidebar })}>
           {!addingNotebook && !notebooks.size && this.renderPlaceholder()}

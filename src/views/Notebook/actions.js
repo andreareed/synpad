@@ -5,6 +5,7 @@ export const POST_NOTE = 'POST_NOTE';
 export const PATCH_NOTE = 'PATCH_NOTE';
 export const DELETE_NOTE = 'DELETE_NOTE';
 export const DELETE_NOTEBOOK = 'DELETE_NOTEBOOK';
+export const PATCH_NOTEBOOK = 'PATCH_NOTEBOOK';
 
 export const getNotebook = id => ({
   type: GET_NOTEBOOK,
@@ -33,5 +34,11 @@ export const deleteNote = (noteId, notebookId) => ({
 export const deleteNotebook = notebookId => ({
   type: DELETE_NOTEBOOK,
   promise: client.delete(`/notebooks/${notebookId}`),
+  notebookId,
+});
+
+export const patchNotebook = (notebookId, payload) => ({
+  type: PATCH_NOTEBOOK,
+  promise: client.patch(`/notebooks/${notebookId}`, payload),
   notebookId,
 });

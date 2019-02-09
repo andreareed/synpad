@@ -4,7 +4,8 @@
   color: #333;
   font-size: 18px;
 
-  .notebook-delete-modal {
+  .notebook-delete-modal,
+  .edit-notebook-modal {
     text-align: center;
 
     h1 {
@@ -15,7 +16,7 @@
 
     .notebook-delete-message {
       width: 400px;
-      min-height: 200px;
+      // min-height: 200px;
       max-width: 100vw;
       padding: 20px;
 
@@ -26,7 +27,8 @@
       }
     }
 
-    .notebook-delete-buttons {
+    .notebook-delete-buttons,
+    .notebook-edit-buttons {
       display: flex;
       justify-content: space-around;
       margin-top: 20px;
@@ -35,5 +37,19 @@
         width: 40%;
       }
     }
+  }
+
+  .edit-notebook-modal .input-wrapper__label {
+    font-size: 24px;
+    margin: 0 !important;
+    text-align: left;
+  }
+
+  .edit-notebook-modal h1 {
+    margin: 0;
+  }
+
+  .notebook-edit-buttons {
+    margin-top: 40px !important;
   }
 }

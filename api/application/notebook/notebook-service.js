@@ -36,4 +36,8 @@ module.exports = {
   async deleteNotebook(id) {
     return Notebook.query().deleteById(id);
   },
+
+  async patchNotebook(id, data) {
+    return Notebook.query().patchAndFetchById(id, data);
+  },
 };
