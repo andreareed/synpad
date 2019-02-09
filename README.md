@@ -2,11 +2,11 @@
 
 A markdown enabled note app
 
-![SynPad gif](https://s3-us-west-1.amazonaws.com/codereed/portfolio-images/projects/synpad/viewing-notes.gif)
+![Note view](https://s3-us-west-1.amazonaws.com/codereed/portfolio-images/projects/synpad/react-notebook.jpg)
 
 Not familiar with markdown? Try these helpful tip from [the markdown cheat sheet!](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 
-![markdown](https://s3-us-west-1.amazonaws.com/codereed/portfolio-images/projects/synpad/markdown.png)
+![markdown](https://s3-us-west-1.amazonaws.com/codereed/portfolio-images/projects/synpad/markdown.jpg)
 
 ## License
 
